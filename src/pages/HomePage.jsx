@@ -44,15 +44,6 @@ export default function HomePage() {
       .catch(err => console.log(err.message))
   }, [])
 
-  //fetch the json data and store it is airlineData and compare it with the flights state
-  let airlineName = []
-  // The below code commented out by Akram - it was giving an error whenever React tried to run it for me. Currently airlinesData doesn't exist, until it's ready I've commented it out so the site can run.
-
-  // setFlights.forEach(flight => {
-  //   airlineName = airlinesData.find(airline => airline.ICAO === flight[0])
-  // })
-
-
   return (
     <div>
       <h1>My OpenSky App</h1>
