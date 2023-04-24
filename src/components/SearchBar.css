@@ -31,6 +31,7 @@
     border-radius: 50%;
     background: conic-gradient(#00ff0055, #00ff00);
     animation: scan 4s infinite linear;
+	right: 10px;
 }
 
 @keyframes scan {

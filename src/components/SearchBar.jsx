@@ -5,7 +5,7 @@ import '../components/SearchBar.css'
 
 export default function SearchBar( { flights, setTrackedFlight, trackedFlight, setIsLoading, isLoading } ){
 
-    const [error, setError] = useState("")
+    
     const [formData, setFormData] = useState()
 	const [error,setError] = useState(false)
 
@@ -31,7 +31,6 @@ export default function SearchBar( { flights, setTrackedFlight, trackedFlight, s
 		setIsLoading(false)
     }
 
-    const handleChange = (e) => {
 
 	const handleChange = e => {
 		setFormData(e.target.value)

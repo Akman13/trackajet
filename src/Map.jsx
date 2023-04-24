@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { GoogleMap, LoadScript, Polyline, Marker } from '@react-google-maps/api'
 import planeIcon from './plane.png'
 import './Map.css'
+import FlightByAircraftIcao from "./components/Test2"
+
 
 const containerStyle = {
 	width: '90vw',
@@ -64,30 +66,38 @@ function Map({ trackedFlight }) {
 		setCenter(elonJetCenter)
 	}
 
-	return (
-        <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_API_KEY}>
-        <>
-        <div className='flight-info'>
-            <p>Altitude: {trackedFlight[0][13]} meters</p>
-            <p>Velocity: {trackedFlight[0][13]} meters</p>
-        </div>
-        <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_API_KEY}>
-            <GoogleMap
-                mapContainerStyle={containerStyle}
-                center={center}
-                zoom={10}>
-                <Polyline path={path} options={options} />
-                <Marker
-                    position={center}
-                    icon={{
-                        url: planeIcon,
-                        // anchor: new window.google.maps.Point(25, 25),
-                    }}
-                />
-            </GoogleMap>
+    console.log(trackedFlight[0][0])
 
-            <button onClick={handleElonJetClick}>Fly with Elon!</button>
-        </LoadScript>
+	return(
+
+        <>
+            <FlightByAircraftIcao icao = {trackedFlight[0][0]} />
+
+            <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_API_KEY}>
+
+                <GoogleMap
+                    mapContainerStyle={containerStyle}
+                    center={center}
+                    zoom={10}>
+                    <Polyline path={path} options={options} />
+                    <Marker
+                        position={center}
+                        icon={{
+                            url: planeIcon,
+                            // anchor: new window.google.maps.Point(25, 25),
+                    }}/>
+                </GoogleMap>
+
+                <button onClick={handleElonJetClick}>Fly with Elon!</button>
+
+            </LoadScript>
+        
+        
+        </>
+
+
+
+        
     )
 }
 

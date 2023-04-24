@@ -4,7 +4,6 @@ import { allActiveFlights, flightByAircraftIcao } from '../utils/opensky_api'
 import SearchBar from "../components/SearchBar"
 import FlightsCards from "../components/FlightsCards"
 import { callsignToFlightnum, filterByRule, mapApiDataToTopFlight } from "../utils/airports"
-
 import Map from "../Map"
 import '../pages/HomePage.css'
 

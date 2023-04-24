@@ -6,7 +6,7 @@ function App() {
   return (
     <div className="App">
       <HomePage />
-      <FlightByAircraftIcao icao={"7c6dde"} />
+      {/* <FlightByAircraftIcao icao={"7c6dde"} /> */}
       {/* <Map /> */}
     </div>
   )
