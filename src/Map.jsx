@@ -43,18 +43,18 @@ function Map({ trackedFlight }) {
 
     useEffect(() => {
 
-        const pathLength = trackedFlight.path.length -1
+        const pathLength = trackedFlight[1].path.length -1
 
 
-        setPath(trackedFlight.path.reduce((acc, curr) => {
+        setPath(trackedFlight[1].path.reduce((acc, curr) => {
 
             return [...acc, {["lat"]: curr[1], ["lng"]:curr[2]}]
             }, [])
         )
 
         setCenter({
-            lat: trackedFlight.path[pathLength][1],
-            lng: trackedFlight.path[pathLength][2],
+            lat: trackedFlight[1].path[pathLength][1],
+            lng: trackedFlight[1].path[pathLength][2],
         })
 
     }, [trackedFlight])
@@ -65,6 +65,12 @@ function Map({ trackedFlight }) {
 	}
 
 	return (
+        <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_API_KEY}>
+        <>
+        <div className='flight-info'>
+            <p>Altitude: {trackedFlight[0][13]} meters</p>
+            <p>Velocity: {trackedFlight[0][13]} meters</p>
+        </div>
         <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_API_KEY}>
             <GoogleMap
                 mapContainerStyle={containerStyle}

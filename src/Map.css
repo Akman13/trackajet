@@ -16,3 +16,12 @@ button:hover {
 	height: 100%;
 	width: 100%;
 }
+
+.flight-info{
+
+	display: flex;
+	flex-direction: row;
+	border: 5px solid skyblue;
+	justify-content: space-between;
+	margin: 5px;
+}

@@ -1,0 +1,15 @@
+.cards-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%/3, max(64px, 100%/4)), 1fr));
+    gap: 10px;
+    background-color: mistyrose;
+}
+
+.flight-card {
+    display: flex;
+    align-items: center;
+}
+
+.flight-card p {
+    margin: 8px 8px;
+}

@@ -1,7 +1,4 @@
 import "./App.css"
-import { useEffect, useState } from "react"
-import SearchBar from "./components/SearchBar"
-// import Map from "./Map"
 import HomePage from "./pages/HomePage"
 import FlightByAircraftIcao from "./components/Test2"
 

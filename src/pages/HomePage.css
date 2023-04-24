@@ -62,3 +62,19 @@ li {
 		margin-bottom: 0.5rem;
 	}
 }
+
+
+.beacon {
+	margin-left: 200px;
+	width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: conic-gradient(#00ff0055, #00ff00);
+    animation: scan 4s infinite linear;
+}
+
+@keyframes scan {
+    to {
+	transform: rotate(1turn);
+    }
+}

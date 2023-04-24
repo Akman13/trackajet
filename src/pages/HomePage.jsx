@@ -13,10 +13,12 @@ export default function HomePage() {
   const [airlines, setAirlines] = useState([])
   const [trackedFlight, setTrackedFlight] = useState([])
   const [topFlights, setTopFlights] = useState([])
-  
-
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
+
+    setIsLoading(true)
+    
     allActiveFlights()
       .then(res => { setFlights(res.states); return res.states })
       .then((res) => res.filter(filterByRule))
@@ -42,6 +44,7 @@ export default function HomePage() {
         })
       })
       .catch(err => console.log(err.message))
+      setIsLoading(false)
   }, [])
 
   //fetch the json data and store it is airlineData and compare it with the flights state
@@ -52,14 +55,12 @@ export default function HomePage() {
   //   airlineName = airlinesData.find(airline => airline.ICAO === flight[0])
   // })
 
-
   return (
     <div>
       <h1>My OpenSky App</h1>
-      <SearchBar flights={flights} setTrackedFlight={setTrackedFlight} />
-      <FlightsCards topFlights={topFlights} flights={flights} setTrackedFlight={setTrackedFlight} />
-
-      {trackedFlight[1]!== undefined ? <Map trackedFlight = {trackedFlight[1]}/> : ( <div className="radar"><div className="beacon"></div>
+      <SearchBar flights={flights} setTrackedFlight={setTrackedFlight} isLoading={isLoading} setIsLoading = {setIsLoading}/>
+      <FlightsCards topFlights={topFlights} />
+      {trackedFlight[1]!== undefined ? <Map trackedFlight = {trackedFlight}/> : ( <div>
     </div>)}
     </div>
   )
