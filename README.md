@@ -15,6 +15,8 @@ To keep track of our progress, we created a Trello board with different columns 
 ## Packages and APIs
 Various packages and APIs were needed to build the project. We used the React Google Maps API to integrate Google Maps into our application. The package allowed us to display markers and flight data on the map. We also used the OpenSky API to fetch real-time flight data.
 
+![plot](Screen Shot 2023-04-21 at 5.35.59 pm.png)
+
 ## Styling
 We used basic CSS to style the application. The color scheme we chose was a timeless blue, grey, and white. Using different shades of blue to differentiate between different flight markers. We also added a search bar that allowed users to search for specific flights.
 

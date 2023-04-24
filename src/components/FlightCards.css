@@ -3,15 +3,11 @@
     grid-template-columns: repeat(auto-fit, minmax(min(100%/3, max(64px, 100%/4)), 1fr));
     gap: 10px;
     background-color: mistyrose;
-    border: 2px solid coral;
 }
 
 .flight-card {
     display: flex;
     align-items: center;
-    cursor: pointer;
-    font-family: Arial, Helvetica, sans-serif;
-    border: 2px solid peru;
 }
 
 .flight-card p {
