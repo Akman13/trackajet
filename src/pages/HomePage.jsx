@@ -13,14 +13,16 @@ export default function HomePage() {
   const [airlines, setAirlines] = useState([])
   const [trackedFlight, setTrackedFlight] = useState([])
   const [topFlights, setTopFlights] = useState([])
+  const [countryFilter, setCountryFilter] = useState('Australia')
   
 
 
   useEffect(() => {
     allActiveFlights()
       .then(res => { setFlights(res.states); return res.states })
-      .then((res) => res.filter(filterByRule))
+      .then(res => res.filter(flight => filterByRule(flight, countryFilter)))
       .then((filteredFlights) => {
+        console.log(filteredFlights)
         const topXFlights = filteredFlights.slice(0, 12);
         // console.log(topXFlights)
 

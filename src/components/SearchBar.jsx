@@ -30,9 +30,9 @@ export default function SearchBar( { flights, setTrackedFlight, trackedFlight } 
     return (
 
         <>
-        <form onChange={handleChange} onSubmit={handleSubmit}>
-            <input type="text" name="search"/>
-            <button>search</button>
+        <form className='search-form' onChange={handleChange} onSubmit={handleSubmit}>
+            <input type="text" name="search" placeholder='Flight number...'/>
+            <button>Search</button>
         </form>
         </>
     )

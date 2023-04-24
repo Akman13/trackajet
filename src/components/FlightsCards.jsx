@@ -16,6 +16,17 @@ export default function FlightsCards({ topFlights, flights, setTrackedFlight }) 
         }
     }
 
+    
+    // Have a text input field
+    // Take their input
+    // See if it's found in any of the countries of our airport file
+    // If it is, then:
+    // - Store it as the filter
+    
+    // Create a filter state, default is 'Australia'
+
+    
+
     return (
         <section className="cards-list">
 
