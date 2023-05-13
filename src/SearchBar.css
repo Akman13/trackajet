@@ -1,0 +1,25 @@
+.flight-search {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 2rem;
+}
+
+.flight-search input[type='text'] {
+	padding: 0.5rem;
+	font-size: 1rem;
+	border: 1px solid #ccc;
+	border-radius: 5px 0 0 5px;
+	border-right: none;
+	box-sizing: border-box;
+	height: 2rem;
+}
+
+.flight-search button {
+	padding: 0.5rem;
+	font-size: 1rem;
+	border: 1px solid #ccc;
+	border-radius: 0 5px 5px 0;
+	background-color: #f2f2f2;
+	height: 2rem;
+}
