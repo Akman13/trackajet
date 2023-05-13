@@ -79,7 +79,7 @@ export default function HomePage() {
   return (
     <main>
       {/* {!trackedFlight[1] && <h1>ElonJet</h1>} */}
-      <h1>TrackerJet</h1>
+      <h1>TrackAJet</h1>
       <SearchBar flights={flights} setTrackedFlight={setTrackedFlight} isLoading={isLoading} setIsLoading={setIsLoading} />
       <FlightsCards topFlights={topFlights} flights={flights} setTrackedFlight={setTrackedFlight} />
       {trackedFlight[1] !== undefined ? <Map trackedFlight={trackedFlight} /> : (<div></div>)}
