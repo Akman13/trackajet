@@ -16,15 +16,26 @@ export default function FlightsCards({ topFlights, flights, setTrackedFlight }) 
         }
     }
 
+    
+    // Have a text input field
+    // Take their input
+    // See if it's found in any of the countries of our airport file
+    // If it is, then:
+    // - Store it as the filter
+    
+    // Create a filter state, default is 'Australia'
+
+    
+
     return (
         <section className="cards-list">
 
             {topFlights.map(flight => (
                 <article onClick={handleClick} className='flight-card' id={`${flight['flightNumber']}`} key={flight['flightNumber']}>
-                    <p>{flight['flightNumber']} </p>
+                    <p>✈️ {flight['flightNumber']} </p>
                     <div>
-                        <span>Dep: {flight['departureAirport']} </span>
-                        <span>Arr: {flight['arrivalAirport']} </span>
+                        <p>Dep: {flight['departureAirport']} </p>
+                        <p>Arr: {flight['arrivalAirport']} </p>
                     </div>
                 </article>
             ))}

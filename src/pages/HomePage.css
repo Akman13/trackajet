@@ -26,6 +26,17 @@ form {
 	margin-bottom: 2rem;
 }
 
+.search-form {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 2rem;
+	align-items: center;
+}
+
+.search-form button {
+	margin: 0px;
+}
+
 input[type='text'] {
 	padding: 0.5rem;
 	font-size: 1rem;

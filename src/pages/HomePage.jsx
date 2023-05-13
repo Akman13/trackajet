@@ -12,7 +12,9 @@ export default function HomePage() {
   const [airlines, setAirlines] = useState([])
   const [trackedFlight, setTrackedFlight] = useState([])
   const [topFlights, setTopFlights] = useState([])
-  const [isLoading, setIsLoading] = useState(true)
+  const [countryFilter, setCountryFilter] = useState('Australia')
+  const [topFlightsFullData, setTopFlightsFullData] = useState([])
+
 
   useEffect(() => {
 
@@ -20,8 +22,9 @@ export default function HomePage() {
     
     allActiveFlights()
       .then(res => { setFlights(res.states); return res.states })
-      .then((res) => res.filter(filterByRule))
+      .then(res => res.filter(flight => filterByRule(flight, countryFilter)))
       .then((filteredFlights) => {
+        console.log(filteredFlights)
         const topXFlights = filteredFlights.slice(0, 12);
         // console.log(topXFlights)
 
@@ -29,16 +32,31 @@ export default function HomePage() {
 
         Promise.all(flightDataPromises).then((response) => {
           const definedFlights = response.filter(Boolean);
-          // console.log(definedFlights)
+          console.log(definedFlights)
+
 
           let mappedToTopFlight = definedFlights
             .map((flight, index) => ({
+
+              ...mapApiDataToTopFlight(flight),
+              flightNumber: callsignToFlightnum(topXFlights[index][1])
+
+            }))
+            .filter(flight => !Object.values(flight).includes('undefined'))
+            .filter(flight => !Object.values(flight).includes(''))
+          ;
+
+          let mappedToTopFlightWithData = definedFlights
+            .map((flight, index) => ({
+              ...flight,
               ...mapApiDataToTopFlight(flight),
               flightNumber: callsignToFlightnum(topXFlights[index][1])
             }))
             .filter(flight => !Object.values(flight).includes('undefined'))
             .filter(flight => !Object.values(flight).includes(''))
-
+          ;
+          
+          setTopFlightsFullData(mappedToTopFlightWithData.slice(0,6))          
           setTopFlights(mappedToTopFlight.slice(0, 6))
         })
       })
@@ -46,21 +64,13 @@ export default function HomePage() {
       setIsLoading(false)
   }, [])
 
-  //fetch the json data and store it is airlineData and compare it with the flights state
-  let airlineName = []
-  // The below code commented out by Akram - it was giving an error whenever React tried to run it for me. Currently airlinesData doesn't exist, until it's ready I've commented it out so the site can run.
-
-  // setFlights.forEach(flight => {
-  //   airlineName = airlinesData.find(airline => airline.ICAO === flight[0])
-  // })
-
   return (
-    <div>
-      <h1>My OpenSky App</h1>
+    <main>
+      <h1>ElonJet</h1>
       <SearchBar flights={flights} setTrackedFlight={setTrackedFlight} isLoading={isLoading} setIsLoading = {setIsLoading}/>
-      <FlightsCards topFlights={topFlights} />
-      {trackedFlight[1]!== undefined ? <Map trackedFlight = {trackedFlight}/> : ( <div>
-    </div>)}
-    </div>
+      <FlightsCards topFlights={topFlights} flights={flights} setTrackedFlight={setTrackedFlight} />
+      {trackedFlight[1] !== undefined ? <Map trackedFlight={trackedFlight} /> : (<div>
+      </div>)}
+    </main>
   )
 }

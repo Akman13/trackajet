@@ -22,9 +22,9 @@ function callsignToFlightnum(callsign) {
     return flightNum;
 }
 
-const filterByRule = (flight) => {
+const filterByRule = (flight, filter) => {
     const regex = new RegExp(/^[a-zA-Z]{3}\d{3}$/)
-    return ((flight[2] === 'Australia') && (regex.test(flight[1].slice(0, 6))))
+    return ((flight[2] === filter) && (regex.test(flight[1].slice(0, 6))))
 }
 
 const getAirportNameForIcaoCode = (icaoToFind) => {
