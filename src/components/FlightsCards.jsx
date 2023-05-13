@@ -1,14 +1,17 @@
 import './FlightsCards.css'
-import { flightNumToCallsign } from '../utils/airlines';
 import { onFlightTrack } from './../utils/opensky_api';
 
 export default function FlightsCards({ topFlights, flights, setTrackedFlight }) {
 
     const handleClick = (e) => {
         const flightNum = e.target.closest('.flight-card').id
-        const callsign = flightNumToCallsign(flightNum)
-
-        const requiredFlight = flights.filter(flight => flight[1] === callsign);
+        const icao24 = e.target.closest('.flight-card').dataset.icao24;
+        
+        
+        // console.log('flightNum',flightNum)
+        console.log('icao24', icao24);
+        const requiredFlight = flights.filter(flight => flight[0] === icao24);
+        console.log('requiredFlight', requiredFlight)
         setTrackedFlight(requiredFlight)
 
         if(requiredFlight[0][0].length !== undefined){
@@ -16,22 +19,11 @@ export default function FlightsCards({ topFlights, flights, setTrackedFlight }) 
         }
     }
 
-    
-    // Have a text input field
-    // Take their input
-    // See if it's found in any of the countries of our airport file
-    // If it is, then:
-    // - Store it as the filter
-    
-    // Create a filter state, default is 'Australia'
-
-    
-
     return (
         <section className="cards-list">
 
             {topFlights.map(flight => (
-                <article onClick={handleClick} className='flight-card' id={`${flight['flightNumber']}`} key={flight['flightNumber']}>
+                <article onClick={handleClick} className='flight-card' id={`${flight['flightNumber']}`} key={flight['flightNumber']} data-icao24={flight['icao24']}>
                     <p>✈️ {flight['flightNumber']} </p>
                     <div>
                         <p>Dep: {flight['departureAirport']} </p>

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { GoogleMap, LoadScript, Polyline, Marker } from '@react-google-maps/api'
 import planeIcon from './plane.png'
 import './Map.css'
-import { FlightByAircraftIcao } from './components/Test2'
 
 const containerStyle = {
     width: '80vw',
@@ -72,7 +71,6 @@ function Map({ trackedFlight }) {
 	return(
 
         <>
-            <FlightByAircraftIcao icao = {trackedFlight[0][0]} />
 
             <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_API_KEY}>
 
@@ -89,7 +87,7 @@ function Map({ trackedFlight }) {
                     }}/>
                 </GoogleMap>
 
-                <button onClick={handleElonJetClick}>Fly with Elon!</button>
+                <button className='elon' onClick={handleElonJetClick}>Fly with Elon!</button>
 
             </LoadScript>
         

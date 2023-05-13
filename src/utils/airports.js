@@ -38,9 +38,16 @@ const getAirportNameForIcaoCode = (icaoToFind) => {
 }
 
 const mapApiDataToTopFlight = (apiFlightData) => {
+    const fullDeptAirport = getAirportNameForIcaoCode(apiFlightData.estDepartureAirport);
+    const fullArrAirport = getAirportNameForIcaoCode(apiFlightData.estArrivalAirport);
+
+    const deptAirport = fullDeptAirport.split(' ').includes('Airport') ? fullDeptAirport.split('Airport')[0] + 'Airport' : fullDeptAirport;
+    const arrAirport = fullArrAirport.split(' ').includes('Airport') ? fullArrAirport.split('Airport')[0] + 'Airport' : fullArrAirport;
+
+
     return {
-        departureAirport: getAirportNameForIcaoCode(apiFlightData.estDepartureAirport),
-        arrivalAirport: getAirportNameForIcaoCode(apiFlightData.estArrivalAirport),
+        departureAirport: deptAirport,
+        arrivalAirport: arrAirport,
     }
 }
 

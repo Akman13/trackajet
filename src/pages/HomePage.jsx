@@ -14,63 +14,75 @@ export default function HomePage() {
   const [topFlights, setTopFlights] = useState([])
   const [countryFilter, setCountryFilter] = useState('Australia')
   const [topFlightsFullData, setTopFlightsFullData] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
 
 
   useEffect(() => {
 
     setIsLoading(true)
-    
+
     allActiveFlights()
       .then(res => { setFlights(res.states); return res.states })
       .then(res => res.filter(flight => filterByRule(flight, countryFilter)))
-      .then((filteredFlights) => {
-        console.log(filteredFlights)
-        const topXFlights = filteredFlights.slice(0, 12);
-        // console.log(topXFlights)
+      .then((countryFilteredFlights) => {
+        // console.log(countryFilteredFlights)
+        const unfilteredFlightsInCountry = countryFilteredFlights.slice(0, 20);
+        console.log('unfilteredFlightsInCountry', unfilteredFlightsInCountry)
 
-        const flightDataPromises = topXFlights.map(([icao24]) => flightByAircraftIcao(icao24));
+        const flightDataPromises = unfilteredFlightsInCountry.map(([icao24]) => flightByAircraftIcao(icao24));
 
         Promise.all(flightDataPromises).then((response) => {
-          const definedFlights = response.filter(Boolean);
-          console.log(definedFlights)
+          let definedFlights = response.filter(Boolean);
+
+          // Check if a flight has null values - if it does, filter it out
+          definedFlights = definedFlights.filter(flight => {
+            if (Object.values(flight).includes(null) || Object.values(flight).includes(undefined)) return false;
+            else return true;
+          })
+
+          // console.log('definedFlights', definedFlights)
 
 
           let mappedToTopFlight = definedFlights
-            .map((flight, index) => ({
-
-              ...mapApiDataToTopFlight(flight),
-              flightNumber: callsignToFlightnum(topXFlights[index][1])
-
-            }))
-            .filter(flight => !Object.values(flight).includes('undefined'))
+            .map((flight, index) => (
+              {
+                ...mapApiDataToTopFlight(flight),
+                icao24: flight['icao24'],
+                flightNumber: callsignToFlightnum(unfilteredFlightsInCountry[index][1])
+              }
+            ))
+            // .filter(flight => !Object.values(flight).includes('undefined'))
+            .filter(flight => !flight['flightNumber'].includes('undefined'))
             .filter(flight => !Object.values(flight).includes(''))
-          ;
+            ;
 
-          let mappedToTopFlightWithData = definedFlights
-            .map((flight, index) => ({
-              ...flight,
-              ...mapApiDataToTopFlight(flight),
-              flightNumber: callsignToFlightnum(topXFlights[index][1])
-            }))
-            .filter(flight => !Object.values(flight).includes('undefined'))
-            .filter(flight => !Object.values(flight).includes(''))
-          ;
-          
-          setTopFlightsFullData(mappedToTopFlightWithData.slice(0,6))          
+          console.log('mappedToTopFlight', mappedToTopFlight)
+
+          // let mappedToTopFlightWithData = definedFlights
+          //   .map((flight, index) => ({
+          //     ...flight,
+          //     ...mapApiDataToTopFlight(flight),
+          //     flightNumber: callsignToFlightnum(unfilteredFlightsInCountry[index][1])
+          //   }))
+          //   .filter(flight => !Object.values(flight).includes('undefined'))
+          //   .filter(flight => !Object.values(flight).includes(''))
+          //   ;
+
+          // setTopFlightsFullData(mappedToTopFlightWithData.slice(0, 6))
           setTopFlights(mappedToTopFlight.slice(0, 6))
         })
       })
       .catch(err => console.log(err.message))
-      setIsLoading(false)
+    setIsLoading(false)
   }, [])
 
   return (
     <main>
-      <h1>ElonJet</h1>
-      <SearchBar flights={flights} setTrackedFlight={setTrackedFlight} isLoading={isLoading} setIsLoading = {setIsLoading}/>
+      {/* {!trackedFlight[1] && <h1>ElonJet</h1>} */}
+      <h1>TrackerJet</h1>
+      <SearchBar flights={flights} setTrackedFlight={setTrackedFlight} isLoading={isLoading} setIsLoading={setIsLoading} />
       <FlightsCards topFlights={topFlights} flights={flights} setTrackedFlight={setTrackedFlight} />
-      {trackedFlight[1] !== undefined ? <Map trackedFlight={trackedFlight} /> : (<div>
-      </div>)}
+      {trackedFlight[1] !== undefined ? <Map trackedFlight={trackedFlight} /> : (<div></div>)}
     </main>
   )
 }

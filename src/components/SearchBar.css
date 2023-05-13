@@ -24,26 +24,42 @@
 	height: 2rem;
 }
 
+.flight-search button:hover {
+	background: #F6F9FE;
+	color: #174ea6;
+	cursor: pointer;
+}
+
 .beacon {
 	margin-left: 200px;
 	width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    background: conic-gradient(#00ff0055, #00ff00);
-    animation: scan 4s infinite linear;
+	height: 200px;
+	border-radius: 50%;
+	background: conic-gradient(#00ff0055, #00ff00);
+	animation: scan 4s infinite linear;
 	right: 10px;
 }
 
 @keyframes scan {
-    to {
-	transform: rotate(1turn);
-    }
+	to {
+		transform: rotate(1turn);
+	}
 }
 
-.not-found{
+.not-found {
 
 	text-align: center;
 	font-size: 30px;
 	font-family: Arial, Helvetica, sans-serif;
 	color: cornflowerblue;
+}
+
+
+.search-wrapper {
+	display: flex;
+	justify-content: center;
+}
+
+#search {
+	margin-right: 0;
 }

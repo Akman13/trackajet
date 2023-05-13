@@ -3106,7 +3106,7 @@
  {
    "id": 389,
    "IATA": "QF",
-   "ICAO": "EAQ",
+   "ICAO": "QFA",
    "Airline": "Eastern Australia Airlines",
    "Callsign": "EASTERN",
    "Country": "Australia"
@@ -8054,5 +8054,13 @@
    "Airline": "Globus Airlines",
    "Callsign": "GLOBUS",
    "Country": "Russia"
- }
+ },
+ {
+  "id": 1098,
+  "IATA": "QF",
+  "ICAO": "QLK",
+  "Airline": "QantasLink",
+  "Callsign": "Q-LINK",
+  "Country": "Australia"
+}
 ]

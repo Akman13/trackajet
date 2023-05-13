@@ -1,6 +1,5 @@
 import "./App.css"
 import HomePage from "./pages/HomePage"
-import FlightByAircraftIcao from "./components/Test2"
 
 function App() {
   return (
