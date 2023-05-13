@@ -22,9 +22,9 @@ export default function FlightByAircraftIcao({ icao }) {
         const flight = flights[0]
         const departureAirport = flight.estDepartureAirport
         const arrivalAirport = flight.estArrivalAirport
-        console.log(arrivalAirport, "line 25")
-        console.log(departureAirport)
-        console.log(flight)
+        // console.log(arrivalAirport, "line 25")
+        // console.log(departureAirport)
+        // console.log(flight)
 
         const departureAirportDetails = airportData.find(
           airport => airport.icao === `${departureAirport}`
@@ -110,13 +110,13 @@ export default function FlightByAircraftIcao({ icao }) {
   // function toRadians(degrees) {
   //   return (degrees * Math.PI) / 180
   // }
-  return (
-    <div>
-      <ul>
-        <li>{distance}</li>
-        <li>{currentDistance}</li>
-        <li>{eta}</li>
-      </ul>
-    </div>
-  )
+  // return (
+  //   <div>
+  //     <ul>
+  //       <li>{distance}</li>
+  //       <li>{currentDistance}</li>
+  //       <li>{eta}</li>
+  //     </ul>
+  //   </div>
+  // )
 }

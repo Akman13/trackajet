@@ -14,7 +14,7 @@ export default function HomePage() {
   const [trackedFlight, setTrackedFlight] = useState([])
   const [topFlights, setTopFlights] = useState([])
   const [countryFilter, setCountryFilter] = useState('Australia')
-  
+  const [topFlightsFullData, setTopFlightsFullData] = useState([])
 
 
   useEffect(() => {
@@ -30,16 +30,31 @@ export default function HomePage() {
 
         Promise.all(flightDataPromises).then((response) => {
           const definedFlights = response.filter(Boolean);
-          // console.log(definedFlights)
+          console.log(definedFlights)
+
 
           let mappedToTopFlight = definedFlights
             .map((flight, index) => ({
+
+              ...mapApiDataToTopFlight(flight),
+              flightNumber: callsignToFlightnum(topXFlights[index][1])
+
+            }))
+            .filter(flight => !Object.values(flight).includes('undefined'))
+            .filter(flight => !Object.values(flight).includes(''))
+          ;
+
+          let mappedToTopFlightWithData = definedFlights
+            .map((flight, index) => ({
+              ...flight,
               ...mapApiDataToTopFlight(flight),
               flightNumber: callsignToFlightnum(topXFlights[index][1])
             }))
             .filter(flight => !Object.values(flight).includes('undefined'))
             .filter(flight => !Object.values(flight).includes(''))
-
+          ;
+          
+          setTopFlightsFullData(mappedToTopFlightWithData.slice(0,6))          
           setTopFlights(mappedToTopFlight.slice(0, 6))
         })
       })
@@ -47,13 +62,13 @@ export default function HomePage() {
   }, [])
 
   return (
-    <div>
-      <h1>My OpenSky App</h1>
+    <main>
+      <h1>ElonJet</h1>
       <SearchBar flights={flights} setTrackedFlight={setTrackedFlight} />
       <FlightsCards topFlights={topFlights} flights={flights} setTrackedFlight={setTrackedFlight} />
 
-      {trackedFlight[1]!== undefined ? <Map trackedFlight = {trackedFlight[1]}/> : ( <div className="radar"><div className="beacon"></div>
-    </div>)}
-    </div>
+      {trackedFlight[1] !== undefined ? <Map trackedFlight={trackedFlight[1]} /> : (<div className="radar"><div className="beacon"></div>
+      </div>)}
+    </main>
   )
 }

@@ -11,7 +11,7 @@ function allActiveFlights() {
 
     return fetch("https://opensky-network.org/api/states/all", {
         headers: {
-          Authorization: "Basic " + btoa("flightreacts:LMN4xp@t8rbJFx6"),
+          Authorization: "Basic " + btoa("Akman:pragmaticpw"),
         },
       })
         .then(res => res.json())
