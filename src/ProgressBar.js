@@ -43,11 +43,11 @@ function flightByAircraftIcao(icao) {
         arrivalLon
       )
 
-      console.log(
-        `Distance between ${departureAirport} and ${arrivalAirport}: ${distance.toFixed(
-          2
-        )} km`
-      )
+      // console.log(
+      //   `Distance between ${departureAirport} and ${arrivalAirport}: ${distance.toFixed(
+      //     2
+      //   )} km`
+      // )
 
       let velocity = fetch(
         `https://opensky-network.org/api/states/all?time=0&icao24=${icao}`,
@@ -61,7 +61,7 @@ function flightByAircraftIcao(icao) {
         .then(res => {
           let vel = res.states[0][9]
           let velInKm = vel * 3.6
-          console.log(velInKm)
+          // console.log(velInKm)
         })
       //console.log(velocity)
 
@@ -82,11 +82,11 @@ function flightByAircraftIcao(icao) {
             arrivalLat,
             arrivalLon
           )
-          console.log(currentDistance)
+          // console.log(currentDistance)
         })
 
       let ETA = currentDistance / velocity
-      console.log(ETA) //1hr 26 min
+      // console.log(ETA) //1hr 26 min
 
       //Helper function to calculate distance between two points in km using the Haversine formula
       function calculateDistance(lat1, lon1, lat2, lon2) {

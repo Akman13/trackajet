@@ -16,10 +16,9 @@ export default function SearchBar( { flights, setTrackedFlight, trackedFlight, s
 		setIsLoading(true)
         
         const callSign = flightNumToCallsign(formData);
-        console.log('searchBar callSign', callSign)
         const requiredFlight = flights.filter(flight => flight[1] === callSign);
-        console.log('searchBar flights', flights)
-        console.log('searchBar requiredFlight', requiredFlight)
+        // console.log('searchBar flights', flights)
+        // console.log('searchBar requiredFlight', requiredFlight)
         setTrackedFlight(requiredFlight)
         
         if(requiredFlight[0][0].length !== undefined){

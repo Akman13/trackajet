@@ -27,7 +27,7 @@ export default function HomePage() {
       .then((countryFilteredFlights) => {
         // console.log(countryFilteredFlights)
         const unfilteredFlightsInCountry = countryFilteredFlights.slice(0, 20);
-        console.log('unfilteredFlightsInCountry', unfilteredFlightsInCountry)
+        // console.log('unfilteredFlightsInCountry', unfilteredFlightsInCountry)
 
         const flightDataPromises = unfilteredFlightsInCountry.map(([icao24]) => flightByAircraftIcao(icao24));
 
@@ -56,7 +56,7 @@ export default function HomePage() {
             .filter(flight => !Object.values(flight).includes(''))
             ;
 
-          console.log('mappedToTopFlight', mappedToTopFlight)
+          // console.log('mappedToTopFlight', mappedToTopFlight)
 
           // let mappedToTopFlightWithData = definedFlights
           //   .map((flight, index) => ({

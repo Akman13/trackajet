@@ -66,7 +66,7 @@ function Map({ trackedFlight }) {
         setCenter(elonJetCenter)
     }
 
-    console.log(trackedFlight[0][0])
+    // console.log(trackedFlight[0][0])
 
 	return(
 

@@ -9,9 +9,9 @@ export default function FlightsCards({ topFlights, flights, setTrackedFlight }) 
         
         
         // console.log('flightNum',flightNum)
-        console.log('icao24', icao24);
+        // console.log('icao24', icao24);
         const requiredFlight = flights.filter(flight => flight[0] === icao24);
-        console.log('requiredFlight', requiredFlight)
+        // console.log('requiredFlight', requiredFlight)
         setTrackedFlight(requiredFlight)
 
         if(requiredFlight[0][0].length !== undefined){
