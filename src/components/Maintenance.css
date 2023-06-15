@@ -1,0 +1,8 @@
+.maintenance {
+    width: 100%;
+}
+
+.maintenance p {
+    text-align: center;
+    font-style: italic;
+}

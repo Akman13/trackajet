@@ -1,9 +1,6 @@
 // The API is not always returning us a JSON error response
 function openskyErrorHandler(error) {
-  // if (error) {
-  //   res.send()
-  // }
-  console.log(error)
+  return error
 }
 
 function onFlightTrack(ICAOnumber) {
@@ -45,6 +42,7 @@ function flightByAircraftIcao(icao) {
       if (res.status !== 200) {
         throw ({status: res.status,message: `There was an error with status code ${res.status}`})
       }
+      // console.log('This res made it through', res.status)
       return res.json()
     })
   .then(flights => flights[0])
