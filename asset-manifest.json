@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/trackajet/static/css/main.b4d3dfd3.css",
+    "main.js": "/trackajet/static/js/main.c4530ed0.js",
+    "static/media/plane.png": "/trackajet/static/media/plane.fd5c408ae28b71549414.png",
+    "index.html": "/trackajet/index.html",
+    "main.b4d3dfd3.css.map": "/trackajet/static/css/main.b4d3dfd3.css.map",
+    "main.c4530ed0.js.map": "/trackajet/static/js/main.c4530ed0.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b4d3dfd3.css",
+    "static/js/main.c4530ed0.js"
+  ]
+}
