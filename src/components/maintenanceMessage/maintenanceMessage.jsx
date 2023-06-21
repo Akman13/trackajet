@@ -1,6 +1,7 @@
-import './Maintenance.css'
+// import './MaintenanceMessage.css'
+import './maintenanceMessage.css'
 
-function Maintenance() {
+function MaintenanceMessage() {
 
     return (
         <div className="maintenance">
@@ -11,4 +12,4 @@ function Maintenance() {
     )
 }
 
-export default Maintenance
+export default MaintenanceMessage

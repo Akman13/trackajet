@@ -1,5 +1,5 @@
-import './FlightsCards.css'
-import { onFlightTrack } from './../utils/opensky_api';
+import './flightsCards.css'
+import { onFlightTrack } from '../../utils/apis/opensky_api';
 
 export default function FlightsCards({ topFlights, flights, setTrackedFlight }) {
 

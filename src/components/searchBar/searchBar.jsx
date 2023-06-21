@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import { flightNumToCallsign } from '../utils/airlines';
-import { onFlightTrack } from '../utils/opensky_api';
-import '../components/SearchBar.css'
+import { flightNumToCallsign } from '../../utils/airlines';
+import { onFlightTrack } from '../../utils/apis/opensky_api';
+
+import './searchBar.css'
 
 export default function SearchBar( { flights, setTrackedFlight, trackedFlight, setIsLoading, isLoading } ){
 

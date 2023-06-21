@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { GoogleMap, LoadScript, Polyline, Marker } from '@react-google-maps/api'
-import planeIcon from './plane.png'
-import './Map.css'
+import planeIcon from '../../assets/plane.png'
+import './map.css'
 
 const containerStyle = {
     width: '80vw',
