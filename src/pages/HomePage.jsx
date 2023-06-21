@@ -35,7 +35,7 @@ export default function HomePage() {
       .then(res => res.filter(flight => filterByRule(flight, countryFilter)))
       .then((countryFilteredFlights) => {
 
-        const unfilteredFlightsInCountry = countryFilteredFlights.slice(0, 18);
+        const unfilteredFlightsInCountry = countryFilteredFlights.slice(0, 20);
 
         const flightDataPromises = unfilteredFlightsInCountry.map(([icao24]) => flightByAircraftIcao(icao24));
 

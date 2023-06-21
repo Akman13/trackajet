@@ -22,15 +22,15 @@
 
 
 .dot1 {
-    animation: visibility 4s linear infinite;
+    animation: visibility 3s linear infinite;
 }
 
 .dot2 {
-    animation: visibility2 4s linear infinite;
+    animation: visibility2 3s linear infinite;
 }
 
 .dot3 {
-    animation: visibility3 4s linear infinite;
+    animation: visibility3 3s linear infinite;
 }
 
 
