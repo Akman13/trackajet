@@ -1,7 +1,13 @@
 import './flightsCards.css'
 import { onFlightTrack } from '../../utils/apis/opensky_api';
+import { useEffect } from 'react';
 
 export default function FlightsCards({ topFlights, flights, setTrackedFlight }) {
+
+    useEffect(() => {
+        console.log('flightsCards useEffect: topFlights', topFlights)
+
+    }, [])
 
     const handleClick = (e) => {
         const flightNum = e.target.closest('.flight-card').id
