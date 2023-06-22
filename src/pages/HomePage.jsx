@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import '../pages/HomePage.css'
 
 // Utils/APIs
@@ -27,17 +27,53 @@ export default function HomePage() {
   // Added for temporary use to connect the two useEffects - assess its place during code clean-up
   const [initialXFlights, setInitialXFlights] = useState([])
 
+  // Creating a promise progress state to test tracking the retrieved flights
+  const [retrievedFlights, setRetrievedFlights] = useState(null)
+
+  // Want 2 things
+  // 1. To prune calls that are taking too long & make new ones in their place
+  // 2. To disregard invalid call returns & make new ones in their place
+  // Proposal:
+  //  - make 6 API calls
+  //  - Find way to prune any lengthy responses
+  //  - Responses that return -> filter them into our array based on validity
+  // ^ The above should be a function, eg. getFlightData()
+  // While our array doesn't have 6 flights, keep reusing getFlightData, but with different flights
+
+  // Bonus: find a way to represent the # of returned API calls, i.e. the length of our array
+  //  - Can have the array.length as a state, and pass it as a prop to the Loading component. Display it as x/6 flights retrieved
+
+  // Need to find a way to track the progress of the promise array
+  // Do it by encapsulating it within a child component? And then receiving from it the dynamic values?
+
+  useEffect(() => {
+    console.log('retrievedFlights', retrievedFlights)
+  }, [retrievedFlights])
+
 
   useEffect(() => {
 
     allActiveFlights()
-      .then(res => { setFlights(res.states); return res.states })
+      .then(res => {
+        if (res.responseStatus === 444) {
+          setOpenSkyLive(false)
+          setIsLoading(false)
+        } else {
+          setFlights(res.states);
+          return res.states
+        }
+      })
       .then(res => res.filter(flight => filterByRule(flight, countryFilter)))
       .then((countryFilteredFlights) => {
 
-        const unfilteredFlightsInCountry = countryFilteredFlights.slice(0, 20);
+        const unfilteredFlightsInCountry = countryFilteredFlights.slice(0, 3);
 
         const flightDataPromises = unfilteredFlightsInCountry.map(([icao24]) => flightByAircraftIcao(icao24));
+
+        for (let p of flightDataPromises) {
+          p.then(result => { console.log('task ' + p + ' has resolved'); setRetrievedFlights(retrievedFlights + 1) })
+        }
+
 
         Promise.all(flightDataPromises).then((response) => {
           console.log('response after promise.all', response)
@@ -45,19 +81,13 @@ export default function HomePage() {
           setInitialXFlights(response)
 
           setOpenSkyLive(response.every((res) => res.responseStatus === 200));
-
-          // Open up with a loading component (isLoading = True)
-          //  - Currently fetching local flights...
-
-          // Once the responses come back, check their status
-          // If they're all good, set openSkyLive=True, else set False
-
-          // Set isLoading to False (loading component disappears)
-
-          // Based on openSkyLive value, either an error message appears or the flights appear
         })
       })
-      .catch(err => console.log(err.message))
+      .catch(err => {
+        if (err.message === 'The user aborted a request.')
+          setOpenSkyLive(false)
+        setIsLoading(false)
+      })
 
   }, [])
 
