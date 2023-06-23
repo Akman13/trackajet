@@ -50,7 +50,7 @@ function SearchBar({ setTrackedFlight }) {
 			{invalidInput &&
 				<div className='invalid-input'>
 					<p>The flight number you have entered could not be found.</p>
-					<p>Please ensure the flight number is both valid and for a live flight</p>
+					<p>Please ensure the flight number is valid and the flight is en-route.</p>
 				</div>
 			}
 		</section>
