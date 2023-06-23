@@ -11,7 +11,8 @@ import { getPlansByICAOs, getPlanDataById } from "../utils/apis/flightPlanDataba
 import SearchBar from "../components/searchBar/searchBar"
 import FlightsCards from "../components/flightCards/flightsCards"
 import Map from "../components/map/map"
-import MaintenanceMessage from "../components/maintenanceMessage/maintenanceMessage"
+import OpenSkyMaintenanceMessage from "../components/underMaintenance/openSkyMaintenance/openSkyMaintenance"
+import FlightCardsMaintenance from "../components/underMaintenance/flightCardsMaintenance/flightCardsMaintenance"
 import LoadingRadar from "../components/loadingRadar/loadingRadar"
 
 export default function HomePage() {
@@ -23,15 +24,13 @@ export default function HomePage() {
   const [topFlightsFullData, setTopFlightsFullData] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [openSkyLive, setOpenSkyLive] = useState(false)
+  const [flightCardsWorking, setFlightCardsWorking] = useState(false)
 
   // Added for temporary use to connect the two useEffects - assess its place during code clean-up
   const [initialXFlights, setInitialXFlights] = useState([])
 
-  // Creating a promise progress state to test tracking the retrieved flights
-  const [retrievedFlights, setRetrievedFlights] = useState(null)
 
   // Want 2 things
-  // 1. To prune calls that are taking too long & make new ones in their place
   // 2. To disregard invalid call returns & make new ones in their place
   // Proposal:
   //  - make 6 API calls
@@ -46,19 +45,16 @@ export default function HomePage() {
   // Need to find a way to track the progress of the promise array
   // Do it by encapsulating it within a child component? And then receiving from it the dynamic values?
 
-  useEffect(() => {
-    console.log('retrievedFlights', retrievedFlights)
-  }, [retrievedFlights])
-
 
   useEffect(() => {
 
     allActiveFlights()
       .then(res => {
-        if (res.responseStatus === 444) {
+        if (res.responseStatus !== 200) {
           setOpenSkyLive(false)
           setIsLoading(false)
         } else {
+          setOpenSkyLive(true)
           setFlights(res.states);
           return res.states
         }
@@ -66,21 +62,15 @@ export default function HomePage() {
       .then(res => res.filter(flight => filterByRule(flight, countryFilter)))
       .then((countryFilteredFlights) => {
 
-        const unfilteredFlightsInCountry = countryFilteredFlights.slice(0, 3);
+        const unfilteredFlightsInCountry = countryFilteredFlights.slice(0, 12);
 
         const flightDataPromises = unfilteredFlightsInCountry.map(([icao24]) => flightByAircraftIcao(icao24));
 
-        for (let p of flightDataPromises) {
-          p.then(result => { console.log('task ' + p + ' has resolved'); setRetrievedFlights(retrievedFlights + 1) })
-        }
-
-
         Promise.all(flightDataPromises).then((response) => {
-          console.log('response after promise.all', response)
           setIsLoading(false)
           setInitialXFlights(response)
 
-          setOpenSkyLive(response.every((res) => res.responseStatus === 200));
+          setFlightCardsWorking(response.some(res => res.responseStatus === 200))
         })
       })
       .catch(err => {
@@ -119,14 +109,17 @@ export default function HomePage() {
 
     }
     else {
-      console.log('OpenSky is not live')
-
       // --------------- Commenting the section below out until the check for OpenSkyStatus is fixed
 
-      // // Limiting the number of flights to reduce API usage - #Increase to 6 before deployment
+      // Limiting the number of flights to reduce API usage - #Increase to 6 before deployment
       // const flightsSample = unfilteredFlightsInCountry.slice(0, 1)
+      
+      // Testing viability of FlightLabs to handle user text input
+      console.log('openSkyDown, flightData using flightIATA', getFlightDataByFlightIATA('JQ606'))
+      console.log('openSkyDown, flightData using flightIATA', getFlightDataByFlightICAO('JST606'))
 
-      // // Building a FlightsArray to host flightIATA and airport info - Need to turn into an async function so it can be chained with the step below
+
+      // // For FlightCards. Building a flightsArray[] to host info on the flight cards. Info is flightPlanID, flightIATA, arrival/departure ICAOs
       // const flightsArray = []
       // flightsSample.forEach(async (flight) => {
       //   const flightIATA = callsignToFlightnum(flight[6].trim())
@@ -189,18 +182,20 @@ export default function HomePage() {
   }, [openSkyLive])
 
   return (
-    <main>
-      {/* {!trackedFlight[1] && <h1>ElonJet</h1>} */}
+    <main className="home">
       <h1>TrackAJet</h1>
+
       <SearchBar flights={flights} setTrackedFlight={setTrackedFlight} isLoading={isLoading} setIsLoading={setIsLoading} />
 
       {isLoading && <LoadingRadar />}
 
-      {!isLoading && <FlightsCards topFlights={topFlights} flights={flights} setTrackedFlight={setTrackedFlight} />}
+      {!isLoading && flightCardsWorking && <FlightsCards topFlights={topFlights} flights={flights} setTrackedFlight={setTrackedFlight} />}
 
-      {trackedFlight[1] !== undefined ? <Map trackedFlight={trackedFlight} /> : (<div></div>)}
+      {(trackedFlight[1] !== undefined) ? <Map trackedFlight={trackedFlight} /> : (<div></div>)}
 
-      {!isLoading && !openSkyLive && <MaintenanceMessage />}
+      {!isLoading && !openSkyLive && <OpenSkyMaintenanceMessage />}
+
+      {!isLoading && !flightCardsWorking && <FlightCardsMaintenance />}
     </main>
   )
 }

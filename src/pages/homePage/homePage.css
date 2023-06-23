@@ -1,0 +1,8 @@
+h1 {
+	font-size: 3rem;
+	font-weight: bold;
+	text-align: center;
+	color: #222;
+	text-shadow: 2px 2px #eee;
+	margin-bottom: 100px;
+}

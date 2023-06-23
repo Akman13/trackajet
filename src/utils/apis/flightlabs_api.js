@@ -8,7 +8,7 @@ function getFlightDataByFlightIATA(iataCode) {
 }
 
 function getFlightDataByFlightICAO(icaoCode) {
-    const url = `https://airlabs.co/api/v9/flights?api_key=${process.env.REACT_APP_AIRLAB_API_KEY}&flight_cao=${icaoCode}`
+    const url = `https://airlabs.co/api/v9/flights?api_key=${process.env.REACT_APP_AIRLAB_API_KEY}&flight_icao=${icaoCode}`
 
     return fetch(url, {
         methods: 'GET',

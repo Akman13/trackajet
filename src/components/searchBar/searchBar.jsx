@@ -8,7 +8,6 @@ export default function SearchBar( { flights, setTrackedFlight, trackedFlight, s
 
     
     const [formData, setFormData] = useState()
-	const [error,setError] = useState(false)
 
     const handleSubmit = (e) => {
 
@@ -18,8 +17,9 @@ export default function SearchBar( { flights, setTrackedFlight, trackedFlight, s
         
         const callSign = flightNumToCallsign(formData);
         const requiredFlight = flights.filter(flight => flight[1] === callSign);
+		console.log('searchBar requiredFlight', requiredFlight)
         // console.log('searchBar flights', flights)
-        // console.log('searchBar requiredFlight', requiredFlight)
+        console.log('searchBar callSign', callSign)
         setTrackedFlight(requiredFlight)
         
         if(requiredFlight[0][0].length !== undefined){
@@ -28,10 +28,7 @@ export default function SearchBar( { flights, setTrackedFlight, trackedFlight, s
 
 		if(requiredFlight[0] === undefined){
 			console.log('not found')
-			setError(true)
 			return
-		} else {
-			setError(false)
 		}
     
         onFlightTrack(requiredFlight[0][0]).then(res => setTrackedFlight([...requiredFlight, res])) 
@@ -62,8 +59,6 @@ export default function SearchBar( { flights, setTrackedFlight, trackedFlight, s
 				<button type='submit'>Search</button>
 			</div>
 		</form>
-		{error && (<div className='not-found'>Flight number not found</div>)}
-		{error && (<div className="beacon"></div>)}
 		</>
 
 	)

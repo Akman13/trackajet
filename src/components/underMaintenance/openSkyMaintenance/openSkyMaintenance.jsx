@@ -1,7 +1,6 @@
-// import './MaintenanceMessage.css'
-import './maintenanceMessage.css'
+import './openSkyMaintenance.css'
 
-function MaintenanceMessage() {
+function OpenSkyMaintenanceMessage() {
 
     return (
         <div className="maintenance">
@@ -12,4 +11,4 @@ function MaintenanceMessage() {
     )
 }
 
-export default MaintenanceMessage
+export default OpenSkyMaintenanceMessage

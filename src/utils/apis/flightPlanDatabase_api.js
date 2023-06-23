@@ -1,5 +1,5 @@
-function getPlansByICAOs(deptIcao, arrIcao) {
-    const url = `https://api.flightplandatabase.com/search/plans?fromICAO=${deptIcao}&toICAO=${arrIcao}`
+function getPlansByICAOs(depIcao, arrIcao) {
+    const url = `https://api.flightplandatabase.com/search/plans?fromICAO=${depIcao}&toICAO=${arrIcao}&sort=popularity`
 
     const config = {
         method: 'GET',
