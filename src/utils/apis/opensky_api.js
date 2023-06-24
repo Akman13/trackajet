@@ -3,7 +3,7 @@ function openskyErrorHandler(error) {
   return error
 }
 
-function onFlightTrack(ICAOnumber) {
+function getFlightTrack(ICAOnumber) {
 
   const url = `https://opensky-network.org/api/tracks/all?icao24=${ICAOnumber}&time=0`
 
@@ -75,4 +75,4 @@ async function flightByAircraftIcao(icao) {
 
 }
 
-export { onFlightTrack, allActiveFlights, flightByAircraftIcao };
+export { getFlightTrack, allActiveFlights, flightByAircraftIcao };

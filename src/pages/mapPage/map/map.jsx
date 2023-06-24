@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer, useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { GoogleMap, LoadScript, Polyline, Marker } from '@react-google-maps/api'
 
 import planeIcon from '../../../assets/plane.png'
@@ -9,13 +9,6 @@ const containerStyle = {
     height: '100vh',
     margin: 'auto',
 }
-
-
-const elonJetCenter = {
-    lat: 33.92074,
-    lng: -118.32704,
-}
-
 
 const traversedPathOptions = {
     strokeColor: '#FF0000',
@@ -47,16 +40,25 @@ const initialCenter = {
     lng: -38.523,
 }
 
+const elonJetCenter = {
+    lat: 33.92074,
+    lng: -118.32704,
+}
 
 function Map({ trackedFlight }) {
     const [center, setCenter] = useState(initialCenter)
     const [traversedPath, setTraversedPath] = useState([])
     const [unTraversedPath, setUntraversedPath] = useState([])
 
+
+
     useEffect(() => {
         const pathProximities = trackedFlight['path'].map((node, index) => Math.sqrt((node['lat'] - trackedFlight['lat']) ** 2 + (node['lon'] - trackedFlight['lng']) ** 2))
+        console.log('maps trackedFlight', trackedFlight)
 
         const nearestNodeIndex = pathProximities.indexOf(Math.min(...pathProximities))
+
+        console.log('nearestNodeIndex', nearestNodeIndex)
 
         setCenter({
             lat: trackedFlight['path'][nearestNodeIndex]['lat'],
@@ -75,6 +77,9 @@ function Map({ trackedFlight }) {
             return [...acc, { ["lat"]: curr['lat'], ["lng"]: curr['lon'] }]
         }, []))
 
+
+
+
     }, [trackedFlight])
 
 
@@ -89,13 +94,14 @@ function Map({ trackedFlight }) {
                     zoom={10}>
                     <Polyline path={unTraversedPath} options={unTraversedPathOptions} />
                     <Polyline path={traversedPath} options={traversedPathOptions} />
+
                     <Marker
                         position={center}
                         icon={{
                             url: planeIcon,
-                            rotation: 125
                             // anchor: new window.google.maps.Point(25, 25),
                         }} />
+
                 </GoogleMap>
 
             </LoadScript>
