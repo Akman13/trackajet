@@ -18,7 +18,7 @@ function SearchBar({ setTrackedFlight }) {
 
 		try {
 			const flightData = await getFullFlightData(flightIata)
-			console.log('searchBar flightData', flightData)
+			// console.log('searchBar flightData', flightData)
 
 
 			setTrackedFlight(flightData)
