@@ -1,8 +1,8 @@
 import { useState } from "react"
 import "./App.css"
 // import HomePage from "./pages/HomePage"
-import { HomePage } from "./pages/homePage/homePage"
-import {MapPage} from "./pages/mapPage/mapPage"
+import { HomePage } from "./app/homePage/homePage"
+import {MapPage} from "./app/mapPage/mapPage"
 
 function App() {
 
@@ -11,7 +11,7 @@ function App() {
   return (
     <div className="App">
       {Object.keys(trackedFlight).length === 0 && <HomePage setTrackedFlight={setTrackedFlight}/>}
-      {Object.keys(trackedFlight).length !== 0 && <MapPage trackedFlight={trackedFlight}/>}
+      {Object.keys(trackedFlight).length !== 0 && <MapPage trackedFlight={trackedFlight} setTrackedFlight={setTrackedFlight}/>}
     </div>
   )
 }

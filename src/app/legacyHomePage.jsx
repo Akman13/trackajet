@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react"
-import '../pages/HomePage.css'
+import './HomePage.css'
 
 // Utils/APIs
 import { callsignToFlightnum, filterByRule, mapApiDataToTopFlight } from "../utils/airports"
@@ -8,7 +8,7 @@ import { getFlightDataByFlightIATA, getFlightDataByFlightICAO } from "../utils/a
 import { getPlansByICAOs, getPlanDataById } from "../utils/apis/flightPlanDatabase_api"
 
 // Components
-import SearchBar from "../components/searchBar/searchBar"
+import SearchBar from "../components/legacySearchBar/searchBar"
 import FlightsCards from "../components/flightCards/flightsCards"
 import Map from "../components/map/map"
 import OpenSkyMaintenanceMessage from "../components/underMaintenance/openSkyMaintenance/openSkyMaintenance"

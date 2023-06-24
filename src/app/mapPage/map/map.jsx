@@ -54,11 +54,11 @@ function Map({ trackedFlight }) {
 
     useEffect(() => {
         const pathProximities = trackedFlight['path'].map((node, index) => Math.sqrt((node['lat'] - trackedFlight['lat']) ** 2 + (node['lon'] - trackedFlight['lng']) ** 2))
-        console.log('maps trackedFlight', trackedFlight)
+        // console.log('maps trackedFlight', trackedFlight)
 
         const nearestNodeIndex = pathProximities.indexOf(Math.min(...pathProximities))
 
-        console.log('nearestNodeIndex', nearestNodeIndex)
+        // console.log('nearestNodeIndex', nearestNodeIndex)
 
         setCenter({
             lat: trackedFlight['path'][nearestNodeIndex]['lat'],
@@ -89,6 +89,9 @@ function Map({ trackedFlight }) {
             <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_API_KEY}>
 
                 <GoogleMap
+                    options={{
+                        mapTypeControl: false
+                    }}
                     mapContainerStyle={containerStyle}
                     center={center}
                     zoom={10}>

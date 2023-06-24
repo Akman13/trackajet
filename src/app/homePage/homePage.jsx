@@ -1,9 +1,7 @@
 import './homePage.css'
-import {SearchBar} from './searchBar/searchBar'
+import {SearchBar} from '../sharedComponents/searchBar/searchBar'
 
 function HomePage( {setTrackedFlight} ) {
-
-
 
 
     return (

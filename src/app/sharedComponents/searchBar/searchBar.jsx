@@ -25,6 +25,7 @@ function SearchBar({ setTrackedFlight }) {
 			setInvalidInput(false)
 
 		} catch (error) {
+			console.log('searchBar error', error)
 			setInvalidInput(true)
 		}
 	}
