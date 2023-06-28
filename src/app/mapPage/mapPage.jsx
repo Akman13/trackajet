@@ -1,5 +1,6 @@
 import Map from "./map/map";
 import { MoreFlights } from "./moreFlights/moreFlights";
+import { FlightData } from "./flightData/flightData";
 
 function MapPage({ trackedFlight, setTrackedFlight }) {
 
@@ -7,6 +8,7 @@ function MapPage({ trackedFlight, setTrackedFlight }) {
         <>
             <Map trackedFlight={trackedFlight} />
             <MoreFlights setTrackedFlight={setTrackedFlight} />
+            <FlightData />
 
         </>
     )
