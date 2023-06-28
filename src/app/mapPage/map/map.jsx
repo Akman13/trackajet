@@ -77,9 +77,6 @@ function Map({ trackedFlight }) {
             return [...acc, { ["lat"]: curr['lat'], ["lng"]: curr['lon'] }]
         }, []))
 
-
-
-
     }, [trackedFlight])
 
 
@@ -95,6 +92,7 @@ function Map({ trackedFlight }) {
                     mapContainerStyle={containerStyle}
                     center={center}
                     zoom={10}>
+
                     <Polyline path={unTraversedPath} options={unTraversedPathOptions} />
                     <Polyline path={traversedPath} options={traversedPathOptions} />
 
@@ -102,7 +100,6 @@ function Map({ trackedFlight }) {
                         position={center}
                         icon={{
                             url: planeIcon,
-                            // anchor: new window.google.maps.Point(25, 25),
                         }} />
 
                 </GoogleMap>
