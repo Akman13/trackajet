@@ -1,5 +1,5 @@
 import { Button, Drawer } from "@mantine/core"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 import { LeftHandleBar } from "../../../components/leftHandleBar/leftHandleBar"
 
@@ -24,27 +24,26 @@ const expandArrowSx = {
 }
 
 const handleContainerStyle = {
-    'width': '20px',
-    'height': 'auto',
+    'width': '24px',
+    'height': 'min-content',
     'position': 'absolute',
     'left': '0px',
     'top': '50%',
     'transform': 'translate(-0%, -50%)',
-    'cursor':'pointer',
+    'cursor': 'pointer',
     'overflow': 'visible'
 }
 
+// Want to scale the handlebar down, mainly by the height, and set the width to be auto
+
+// 1: Make the child component render itself according to the screen size, and have the parent component resize itself down as needed 
 
 function FlightData() {
 
     const [open, setOpen] = useState(false)
 
-    // Make an svg handle component in the components folder
-    // Contains 
-
-    // Make the button be the triangle icon
-
-    // Change the triangle icon to be a wider shape, like a triangle imposed on a rectangle
+    // TODO:
+    // Stick the handle bar to the overlay menu
 
     return (
         <>
