@@ -2,6 +2,7 @@ import { Button, Drawer } from "@mantine/core"
 import { useEffect, useState } from "react"
 
 import { LeftHandleBar } from "../../../components/leftHandleBar/leftHandleBar"
+import { useDisclosure } from "@mantine/hooks"
 
 // const expandArrowSx = {
 //     'background-color': 'transparent',
@@ -25,21 +26,13 @@ import { LeftHandleBar } from "../../../components/leftHandleBar/leftHandleBar"
 
 
 
-const handleContainerStyle = {
-    'width': '24px',
-    'height': 'auto',
-    // 'max-height': 'fit-content',
-    'position': 'absolute',
-    'left': '0px',
-    'top': '50%',
-    'transform': 'translate(-0%, -50%)',
-    'cursor': 'pointer',
-    // 'overflow': 'visible'
-}
+
 
 function FlightData() {
+    const [opened, { open, close }] = useDisclosure(false)
     const [screenSize, setScreenSize] = useState(getCurrentDimension());
     const [yScaleFactor, setYScaleFactor] = useState(null)
+
 
     function getCurrentDimension() {
         return {
@@ -64,31 +57,75 @@ function FlightData() {
 
     const innerStyles = {
         'height': `${746 * yScaleFactor / 0.78}px`,
+        'margin': 'auto 0',
+
     }
 
+    const handleClosedContainerStyle = {
+        // 'border': '1px solid green',
+        'width': '24px',
+        'height': `${746 * yScaleFactor / 0.79}px`,
+        'position': 'absolute',
+        'left': '0px',
+        'top': '50%',
+        'transform': 'translate(-0%, -50%)',
+        'cursor': 'pointer',
+    }
 
-    const [open, setOpen] = useState(false)
+    const handleOpenContainerStyle = {
+        // 'border': '1px solid green',
+        'width': '24px',
+        'height': `${746 * yScaleFactor / 0.79}px`,
+        'position': 'fixed',
+        'float': 'right',
+        'right': '-24px',
+        'top': '50%',
+        'transform': 'translate(-0%, -50%)',
+        'cursor': 'pointer',
+    }
+
+    // const drawerContentParentStyle = {
+    //     // 'height': '100%',
+    //     // 'width': 'fit-content',
+    //     'height': `${746 * yScaleFactor / 0.79}px`,
+    //     'position': 'fixed',
+    //     'left': '0px',
+    //     // 'right': '0px',
+    //     'margin': 'auto 0',
+    //     'top': '0px',
+    //     'bottom': '0px',
+    //     'display': 'flex',
+    // }
+
 
     // TODO:
+    // Resolve the misalignment between the svg and the parent div
     // Set the height of the Drawer to be equal to that of the handle
-    // handleHeight = 746*yScaleFactor / 0.79
-    // Stick the handle bar to the overlay menu
 
     return (
         <>
-            <Drawer
-                styles={{content: innerStyles}}
+            <Drawer.Root
                 position="left"
-                opened={open}
-                onClose={() => setOpen(false)}
+                opened={opened}
+                onClose={close}
                 withOverlay={false}
                 closeOnClickOutside={false}
-                >
-            </Drawer>
+                withCloseButton={true}
+            >
 
-            <div style={handleContainerStyle} onClick={() => setOpen(!open)}>
+                <Drawer.Content style={innerStyles}>
+                        {opened && <div style={handleOpenContainerStyle} onClick={close}>
+                            <LeftHandleBar yScaleFactor={yScaleFactor} />
+                        </div>}
+                    <Drawer.Body style={{'padding':'0px', 'width': 'min-content'}}>
+                    </Drawer.Body>
+                </Drawer.Content>
+
+            </Drawer.Root>
+
+            {!opened && <div style={handleClosedContainerStyle} onClick={open}>
                 <LeftHandleBar yScaleFactor={yScaleFactor} />
-            </div>
+            </div>}
 
         </>
     )

@@ -4,7 +4,7 @@ function LeftHandleBar( {yScaleFactor} ) {
     // Rotate the arrow as it is clicked
 
     return (
-        <svg transform={`scale(1,${yScaleFactor})`} viewBox="0 0 19 746"> 
+        <svg transform={`scale(1,${yScaleFactor})`} viewBox="0 0 19 746" display={'block'}> 
         {/* Viewbox: last two viewBox dimensions control the x/y-zoom of the svg. The x-zoom is intentionally larger than the max-x value of the polyline to display the shadow on the right edge. */}
         {/* Scale: scaling the svg to stretch/shrink the height whilst the width is constant */}
             <filter id="dropshadow" height="130%" width="200%">
