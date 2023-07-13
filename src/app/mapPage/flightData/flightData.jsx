@@ -92,6 +92,9 @@ function FlightData() {
     }
 
     // TODO:
+    // Add arrow to svg that rotates as it changes state
+    // Create another arrow component that exists within the <LeftHandleBar>
+    // Pass a prop to <LeftHandleBar> that defines the arrow's state
 
     return (
         <>
@@ -108,7 +111,7 @@ function FlightData() {
                     {opened &&
                         <div style={handleOpenParentStyle}>
                             <div style={handleOpenStyle}>
-                                <LeftHandleBar yScaleFactor={yScaleFactor} close={close} />
+                                <LeftHandleBar yScaleFactor={yScaleFactor} close={close} opened={opened}/>
                             </div>
                         </div>}
                     <Drawer.Body style={{ 'padding': '0px' }}>
