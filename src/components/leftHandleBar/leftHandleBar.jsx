@@ -1,10 +1,22 @@
-function LeftHandleBar( {yScaleFactor} ) {
+function LeftHandleBar( {open, close, yScaleFactor} ) {
     // TODO: 
     // Insert an arrow tip in the triangle
     // Rotate the arrow as it is clicked
 
+    const svgStyle = {
+        'transform': `scale(1,${yScaleFactor})`,
+    }
+
+    const polylineStyle = {
+        'filter': 'url(#dropshadow)',
+        'cursor': 'pointer'
+    }
+
     return (
-        <svg transform={`scale(1,${yScaleFactor})`} viewBox="0 0 19 746" display={'block'}> 
+        <svg
+        viewBox="0 0 19 746" 
+        style={svgStyle}
+        onClick={open||close}> 
         {/* Viewbox: last two viewBox dimensions control the x/y-zoom of the svg. The x-zoom is intentionally larger than the max-x value of the polyline to display the shadow on the right edge. */}
         {/* Scale: scaling the svg to stretch/shrink the height whilst the width is constant */}
             <filter id="dropshadow" height="130%" width="200%">
@@ -20,7 +32,7 @@ function LeftHandleBar( {yScaleFactor} ) {
             </filter>
             <polyline fill="#f2f2f2"
                 points="0,0 8,16 8,344 14,352 14,364 14,376 8,384 8,728 0,746 0,0"
-                style={{ 'filter': 'url(#dropshadow)' }}
+                style={polylineStyle}
             />
         </svg>
     )

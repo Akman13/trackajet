@@ -56,51 +56,42 @@ function FlightData() {
     }, [screenSize])
 
     const innerStyles = {
-        'height': `${746 * yScaleFactor / 0.78}px`,
+        'height': `${746 * yScaleFactor / 0.79}px`,
         'margin': 'auto 0',
-
+        'overflow': 'visible',
+        'max-width': '80%',
+        'background-color': 'rgb(242, 242, 242)'
     }
 
-    const handleClosedContainerStyle = {
-        // 'border': '1px solid green',
+    const handleClosedStyle = {
         'width': '24px',
         'height': `${746 * yScaleFactor / 0.79}px`,
         'position': 'absolute',
         'left': '0px',
         'top': '50%',
         'transform': 'translate(-0%, -50%)',
-        'cursor': 'pointer',
+        'display': 'flex',
+        'align-items': 'center'
     }
 
-    const handleOpenContainerStyle = {
-        // 'border': '1px solid green',
+    const handleOpenStyle = {
         'width': '24px',
-        'height': `${746 * yScaleFactor / 0.79}px`,
-        'position': 'fixed',
+        'height': '100%',
         'float': 'right',
-        'right': '-24px',
-        'top': '50%',
-        'transform': 'translate(-0%, -50%)',
-        'cursor': 'pointer',
+        'margin-right': '-24px',
+        'display': 'flex',
+        'align-items': 'center',
+        'box-sizing': 'content-box'
     }
 
-    // const drawerContentParentStyle = {
-    //     // 'height': '100%',
-    //     // 'width': 'fit-content',
-    //     'height': `${746 * yScaleFactor / 0.79}px`,
-    //     'position': 'fixed',
-    //     'left': '0px',
-    //     // 'right': '0px',
-    //     'margin': 'auto 0',
-    //     'top': '0px',
-    //     'bottom': '0px',
-    //     'display': 'flex',
-    // }
-
+    const handleOpenParentStyle = {
+        'display': 'inline-block',
+        'vertical-align': 'middle',
+        'width': '100%',
+        'height': '100%'
+    }
 
     // TODO:
-    // Resolve the misalignment between the svg and the parent div
-    // Set the height of the Drawer to be equal to that of the handle
 
     return (
         <>
@@ -114,17 +105,20 @@ function FlightData() {
             >
 
                 <Drawer.Content style={innerStyles}>
-                        {opened && <div style={handleOpenContainerStyle} onClick={close}>
-                            <LeftHandleBar yScaleFactor={yScaleFactor} />
+                    {opened &&
+                        <div style={handleOpenParentStyle}>
+                            <div style={handleOpenStyle}>
+                                <LeftHandleBar yScaleFactor={yScaleFactor} close={close} />
+                            </div>
                         </div>}
-                    <Drawer.Body style={{'padding':'0px', 'width': 'min-content'}}>
+                    <Drawer.Body style={{ 'padding': '0px' }}>
                     </Drawer.Body>
                 </Drawer.Content>
 
             </Drawer.Root>
 
-            {!opened && <div style={handleClosedContainerStyle} onClick={open}>
-                <LeftHandleBar yScaleFactor={yScaleFactor} />
+            {!opened && <div style={handleClosedStyle}>
+                <LeftHandleBar yScaleFactor={yScaleFactor} open={open} />
             </div>}
 
         </>
