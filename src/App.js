@@ -11,6 +11,7 @@ function App() {
   return (
     <div className="App">
       {Object.keys(trackedFlight).length === 0 && <HomePage setTrackedFlight={setTrackedFlight}/>}
+      
       {Object.keys(trackedFlight).length !== 0 && <MapPage trackedFlight={trackedFlight} setTrackedFlight={setTrackedFlight}/>}
     </div>
   )

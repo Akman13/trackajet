@@ -4,10 +4,17 @@ import { FlightData } from "./flightData/flightData";
 
 function MapPage({ trackedFlight, setTrackedFlight }) {
 
+    const moreFlightsStyle = {
+        'display':'flex',
+        'justify-content': 'center',
+    }
+
     return (
         <>
             <Map trackedFlight={trackedFlight} />
-            <MoreFlights setTrackedFlight={setTrackedFlight} />
+            <div style={moreFlightsStyle}>
+                <MoreFlights setTrackedFlight={setTrackedFlight} />
+            </div>
             <FlightData />
 
         </>
