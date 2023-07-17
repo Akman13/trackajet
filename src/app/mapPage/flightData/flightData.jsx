@@ -1,8 +1,13 @@
 import { Button, Drawer } from "@mantine/core"
 import { useEffect, useState } from "react"
 
-import { LeftHandleBar } from "../../../components/leftHandleBar/leftHandleBar"
 import { useDisclosure } from "@mantine/hooks"
+
+import { LeftHandleBar } from "../../../components/leftHandleBar/leftHandleBar"
+import { ProgressBar } from "./progressBar/progressBar"
+const airlinesData = require('./../../../data/airlines.json')
+const airportsData = require('./../../../data/airports.json')
+
 
 // const expandArrowSx = {
 //     'background-color': 'transparent',
@@ -24,14 +29,24 @@ import { useDisclosure } from "@mantine/hooks"
 //     }
 // }
 
+/* 
+    TODO:
+    Modify the new airports.txt file to a JSON file and add it as a database
+    Connect all the values to the real values
+    Add a refresh button to update the values on the pane ONLY (refresh top right?)
+    While being refreshed, display a loading icon/deactivate the pane
+    */
 
 
 
 
-function FlightData() {
+
+function FlightData({ trackedFlight }) {
     const [opened, { open, close }] = useDisclosure(false)
     const [screenSize, setScreenSize] = useState(getCurrentDimension());
     const [yScaleFactor, setYScaleFactor] = useState(null)
+    const [airline, setAirline] = useState({ found: false, airline: null })
+    const [airports, setAirports] = useState({ found: false, departure: null, arrival: null })
 
 
     function getCurrentDimension() {
@@ -42,12 +57,37 @@ function FlightData() {
     }
 
     useEffect(() => {
+        // Airlines: Searching database & setting
+        const airlineFromDatabase = airlinesData.find(airline => airline.ICAO === trackedFlight.airline_icao)
+
+        if (airlineFromDatabase) {
+            setAirline({ found: true, airline: airlineFromDatabase.Airline })
+        }
+
+        // Airports: Searching database & setting
+        console.log('trackedFlight', trackedFlight)
+        const airportsFromDatabase = {
+            dep: airportsData.find(airport => airport.icao === trackedFlight.dep_icao),
+            arr: airportsData.find(airport => airport.icao === trackedFlight.arr_icao)
+        }
+
+        console.log('airportsFromDatabase', airportsFromDatabase)
+
+        if (airportsFromDatabase.dep && airportsFromDatabase.arr) {
+            setAirports({ found: true, departure: airportsFromDatabase.dep, arrival: airportsFromDatabase.arr })
+        }
+
+
+
+    }, [])
+
+    useEffect(() => {
         const updateDimension = () => {
             setScreenSize(getCurrentDimension())
         }
         window.addEventListener('resize', updateDimension);
 
-        setYScaleFactor(0.62 * window.innerHeight / 785)
+        setYScaleFactor(0.5 * window.innerHeight / 785)
 
 
         return (() => {
@@ -56,6 +96,7 @@ function FlightData() {
     }, [screenSize])
 
     const innerStyles = {
+        'position': 'relative',
         'height': `${746 * yScaleFactor / 0.79}px`,
         'margin': 'auto 0',
         'overflow': 'visible',
@@ -85,16 +126,42 @@ function FlightData() {
     }
 
     const handleOpenParentStyle = {
+        'position': 'absolute',
+        'top': '0px',
         'display': 'inline-block',
         'vertical-align': 'middle',
         'width': '100%',
         'height': '100%'
     }
 
-    // TODO:
-    // Add arrow to svg that rotates as it changes state
-    // Create another arrow component that exists within the <LeftHandleBar>
-    // Pass a prop to <LeftHandleBar> that defines the arrow's state
+    const bodyStyle = {
+        'height': '100%',
+        'display': 'flex',
+        'align-items': 'center',
+        'justify-content': 'center',
+        'padding': '1.3em',
+        'font-size': '0.9em',
+        'font-family': '"JetBrains Mono", monospace',
+    }
+
+    const progressBarContainerStyle = {
+        'margin': '1.2em 0'
+    }
+
+    const flightDetailsStyle = {
+        'display': 'flex',
+        'flex-direction': 'column',
+        'justify-content': 'space-around',
+        'line-height': '1.5em'
+    }
+
+    const airportsStyle = {
+        'display': 'flex',
+        'justify-content': 'space-between',
+    }
+
+
+
 
     return (
         <>
@@ -108,10 +175,47 @@ function FlightData() {
             >
 
                 <Drawer.Content style={innerStyles}>
+                    <Drawer.Body style={bodyStyle}>
+
+                        <section style={{ 'width': '90%' }}>
+                            {<h2>Flight {trackedFlight.flight_iata}</h2>}
+                            {airline.found && <h3>{airline.airline}</h3>}
+
+                            <div className="flight-details" style={flightDetailsStyle}>
+                                <article className="airports" style={airportsStyle}>
+                                    <div className="departure">
+                                        <h3>Departure</h3>
+                                        {airports.found &&
+                                            <p>{airports.departure}</p>
+                                        }
+                                        <p>7hr 36min ago</p>
+                                    </div>
+                                    <div className="arrival" style={{ 'margin-right': '-20px' }}>
+                                        <h3>Arrival</h3>
+                                        {airports.found &&
+                                            <p>{airports.arrival}</p>
+                                        }
+                                        <p>2hr 14min left</p>
+                                    </div>
+                                </article>
+
+                                <div className="progress-bar" style={progressBarContainerStyle}>
+                                    <ProgressBar value={50} />
+                                </div>
+
+                                <div className="misc-info">
+                                    <p>30min estimated delay</p>
+                                    <p>Last signal: 2:04PM AEST</p>
+                                </div>
+                            </div>
+                        </section>
+                    </Drawer.Body>
+
                     {opened &&
                         <div style={handleOpenParentStyle}>
+
                             <div style={handleOpenStyle}>
-                                <LeftHandleBar yScaleFactor={yScaleFactor} close={close} opened={opened}/>
+                                <LeftHandleBar yScaleFactor={yScaleFactor} close={close} opened={opened} />
                             </div>
                         </div>}
                     <Drawer.Body style={{ 'padding': '0px' }}>
