@@ -163,7 +163,6 @@ function FlightData({ trackedFlight }) {
 
 
 
-
     return (
         <>
             <Drawer.Root
