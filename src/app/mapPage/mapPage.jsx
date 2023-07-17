@@ -9,6 +9,9 @@ function MapPage({ trackedFlight, setTrackedFlight }) {
         'justify-content': 'center',
     }
 
+    // TODO:
+    // Add a pop-up adjacent to the FlightData to notify the user of the pane
+
     return (
         <>
             <Map trackedFlight={trackedFlight} />
