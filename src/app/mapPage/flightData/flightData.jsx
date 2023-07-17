@@ -5,6 +5,9 @@ import { useDisclosure } from "@mantine/hooks"
 
 import { LeftHandleBar } from "../../../components/leftHandleBar/leftHandleBar"
 import { ProgressBar } from "./progressBar/progressBar"
+const airlinesData = require('./../../../data/airlines.json')
+const airportsData = require('./../../../data/airports.json')
+
 
 // const expandArrowSx = {
 //     'background-color': 'transparent',
@@ -26,14 +29,24 @@ import { ProgressBar } from "./progressBar/progressBar"
 //     }
 // }
 
+/* 
+    TODO:
+    Modify the new airports.txt file to a JSON file and add it as a database
+    Connect all the values to the real values
+    Add a refresh button to update the values on the pane ONLY (refresh top right?)
+    While being refreshed, display a loading icon/deactivate the pane
+    */
 
 
 
 
-function FlightData() {
+
+function FlightData({ trackedFlight }) {
     const [opened, { open, close }] = useDisclosure(false)
     const [screenSize, setScreenSize] = useState(getCurrentDimension());
     const [yScaleFactor, setYScaleFactor] = useState(null)
+    const [airline, setAirline] = useState({ found: false, airline: null })
+    const [airports, setAirports] = useState({ found: false, departure: null, arrival: null })
 
 
     function getCurrentDimension() {
@@ -42,6 +55,31 @@ function FlightData() {
             height: window.innerHeight
         }
     }
+
+    useEffect(() => {
+        // Airlines: Searching database & setting
+        const airlineFromDatabase = airlinesData.find(airline => airline.ICAO === trackedFlight.airline_icao)
+
+        if (airlineFromDatabase) {
+            setAirline({ found: true, airline: airlineFromDatabase.Airline })
+        }
+
+        // Airports: Searching database & setting
+        console.log('trackedFlight', trackedFlight)
+        const airportsFromDatabase = {
+            dep: airportsData.find(airport => airport.icao === trackedFlight.dep_icao),
+            arr: airportsData.find(airport => airport.icao === trackedFlight.arr_icao)
+        }
+
+        console.log('airportsFromDatabase', airportsFromDatabase)
+
+        if (airportsFromDatabase.dep && airportsFromDatabase.arr) {
+            setAirports({ found: true, departure: airportsFromDatabase.dep, arrival: airportsFromDatabase.arr })
+        }
+
+
+
+    }, [])
 
     useEffect(() => {
         const updateDimension = () => {
@@ -107,7 +145,7 @@ function FlightData() {
     }
 
     const progressBarContainerStyle = {
-        'margin':'1.2em 0'
+        'margin': '1.2em 0'
     }
 
     const flightDetailsStyle = {
@@ -117,17 +155,14 @@ function FlightData() {
         'line-height': '1.5em'
     }
 
-    const depArrStyle = {
+    const airportsStyle = {
         'display': 'flex',
         'justify-content': 'space-between',
     }
 
 
 
-    // TODO:
-    // Connect all the values to the real values
-    // Add a refresh button to update the values on the pane ONLY (refresh top right?)
-    // While being refreshed, display a loading icon/deactivate the pane
+
 
     return (
         <>
@@ -143,26 +178,30 @@ function FlightData() {
                 <Drawer.Content style={innerStyles}>
                     <Drawer.Body style={bodyStyle}>
 
-                        <section style={{'width':'90%'}}>
-                            <h2>Flight EY101</h2>
-                            <h3>Etihad Airways</h3>
+                        <section style={{ 'width': '90%' }}>
+                            {<h2>Flight {trackedFlight.flight_iata}</h2>}
+                            {airline.found && <h3>{airline.airline}</h3>}
 
                             <div className="flight-details" style={flightDetailsStyle}>
-                                <article className="dep-arr" style={depArrStyle}>
+                                <article className="airports" style={airportsStyle}>
                                     <div className="departure">
                                         <h3>Departure</h3>
-                                        <p>JFK Airport</p>
+                                        {airports.found &&
+                                            <p>{airports.departure}</p>
+                                        }
                                         <p>7hr 36min ago</p>
                                     </div>
-                                    <div className="arrival" style={{'margin-right':'-20px'}}>
+                                    <div className="arrival" style={{ 'margin-right': '-20px' }}>
                                         <h3>Arrival</h3>
-                                        <p>MEL Airport</p>
+                                        {airports.found &&
+                                            <p>{airports.arrival}</p>
+                                        }
                                         <p>2hr 14min left</p>
                                     </div>
                                 </article>
 
                                 <div className="progress-bar" style={progressBarContainerStyle}>
-                                    <ProgressBar value={50}/>
+                                    <ProgressBar value={50} />
                                 </div>
 
                                 <div className="misc-info">

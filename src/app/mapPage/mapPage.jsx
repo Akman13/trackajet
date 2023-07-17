@@ -18,7 +18,7 @@ function MapPage({ trackedFlight, setTrackedFlight }) {
             <div style={moreFlightsStyle}>
                 <MoreFlights setTrackedFlight={setTrackedFlight} />
             </div>
-            <FlightData />
+            <FlightData trackedFlight={trackedFlight} />
 
         </>
     )
