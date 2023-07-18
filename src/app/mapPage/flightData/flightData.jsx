@@ -6,7 +6,7 @@ import { useDisclosure } from "@mantine/hooks"
 import { LeftHandleBar } from "../../../components/leftHandleBar/leftHandleBar"
 import { ProgressBar } from "./progressBar/progressBar"
 const airlinesData = require('./../../../data/airlines.json')
-const airportsData = require('./../../../data/airports.json')
+const airportsData = [require('./../../../data/airports.json'), require('./../../../data/airports_global_db.json')]
 
 
 // const expandArrowSx = {
@@ -31,7 +31,6 @@ const airportsData = require('./../../../data/airports.json')
 
 /* 
     TODO:
-    Modify the new airports.txt file to a JSON file and add it as a database
     Connect all the values to the real values
     Add a refresh button to update the values on the pane ONLY (refresh top right?)
     While being refreshed, display a loading icon/deactivate the pane
@@ -67,17 +66,13 @@ function FlightData({ trackedFlight }) {
         // Airports: Searching database & setting
         console.log('trackedFlight', trackedFlight)
         const airportsFromDatabase = {
-            dep: airportsData.find(airport => airport.icao === trackedFlight.dep_icao),
-            arr: airportsData.find(airport => airport.icao === trackedFlight.arr_icao)
+            dep: airportsData[0].find(airport => airport.icao === trackedFlight.dep_icao) || airportsData[1].find(airport => airport.icao === trackedFlight.dep_icao),
+            arr: airportsData[0].find(airport => airport.icao === trackedFlight.arr_icao) || airportsData[1].find(airport => airport.icao === trackedFlight.arr_icao)
         }
-
-        console.log('airportsFromDatabase', airportsFromDatabase)
 
         if (airportsFromDatabase.dep && airportsFromDatabase.arr) {
             setAirports({ found: true, departure: airportsFromDatabase.dep, arrival: airportsFromDatabase.arr })
         }
-
-
 
     }, [])
 
@@ -186,14 +181,14 @@ function FlightData({ trackedFlight }) {
                                     <div className="departure">
                                         <h3>Departure</h3>
                                         {airports.found &&
-                                            <p>{airports.departure}</p>
+                                            <p>{airports.departure.airport}</p>
                                         }
                                         <p>7hr 36min ago</p>
                                     </div>
                                     <div className="arrival" style={{ 'margin-right': '-20px' }}>
                                         <h3>Arrival</h3>
                                         {airports.found &&
-                                            <p>{airports.arrival}</p>
+                                            <p>{airports.arrival.airport}</p>
                                         }
                                         <p>2hr 14min left</p>
                                     </div>
