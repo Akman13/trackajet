@@ -5,33 +5,23 @@ import { useDisclosure } from "@mantine/hooks"
 
 import { LeftHandleBar } from "../../../components/leftHandleBar/leftHandleBar"
 import { ProgressBar } from "./progressBar/progressBar"
+
+import './flightData.css'
+
 const airlinesData = require('./../../../data/airlines.json')
 const airportsData = [require('./../../../data/airports.json'), require('./../../../data/airports_global_db.json')]
 
 
-// const expandArrowSx = {
-//     'background-color': 'transparent',
-//     'width': '0',
-//     'height': '0',
-//     'border-top': '20px solid transparent',
-//     'border-bottom': '20px solid transparent',
-//     'border-left': '10px solid #e8e8e8',
-//     'border-right': '0px solid transparent',
-//     'position': 'absolute',
-//     'left': '5px',
-//     'top': '50%',
-//     'transform': 'translate(-0%, -50%)',
-//     'padding': '0',
-//     'box-shadow': '4px 0px 4px rgba(0, 0, 0, 0.15)',
-//     '&:active, &:hover': {
-//         'transform': 'none',
-//         'background-color': 'transparent'
-//     }
-// }
 
 /* 
     TODO:
-    Connect all the values to the real values
+    Make responsive
+
+    Restructure the HTML for the times & airports to be aligned
+
+    Change the CSS so the RHS is right-justified
+
+    
     Add a refresh button to update the values on the pane ONLY (refresh top right?)
     While being refreshed, display a loading icon/deactivate the pane
     */
@@ -64,7 +54,6 @@ function FlightData({ trackedFlight }) {
         }
 
         // Airports: Searching database & setting
-        console.log('trackedFlight', trackedFlight)
         const airportsFromDatabase = {
             dep: airportsData[0].find(airport => airport.icao === trackedFlight.dep_icao) || airportsData[1].find(airport => airport.icao === trackedFlight.dep_icao),
             arr: airportsData[0].find(airport => airport.icao === trackedFlight.arr_icao) || airportsData[1].find(airport => airport.icao === trackedFlight.arr_icao)
@@ -73,7 +62,6 @@ function FlightData({ trackedFlight }) {
         if (airportsFromDatabase.dep && airportsFromDatabase.arr) {
             setAirports({ found: true, departure: airportsFromDatabase.dep, arrival: airportsFromDatabase.arr })
         }
-
     }, [])
 
     useEffect(() => {
@@ -99,6 +87,15 @@ function FlightData({ trackedFlight }) {
         'background-color': 'rgb(242, 242, 242)'
     }
 
+    const bodyStyle = {
+        'height': '100%',
+        'display': 'flex',
+        'align-items': 'center',
+        'justify-content': 'center',
+        'font-size': '0.9em',
+        'font-family': '"JetBrains Mono", monospace',
+    }
+
     const handleClosedStyle = {
         'width': '24px',
         'height': `${746 * yScaleFactor / 0.79}px`,
@@ -121,22 +118,13 @@ function FlightData({ trackedFlight }) {
     }
 
     const handleOpenParentStyle = {
+        'z-index': '-100',
         'position': 'absolute',
         'top': '0px',
         'display': 'inline-block',
         'vertical-align': 'middle',
         'width': '100%',
         'height': '100%'
-    }
-
-    const bodyStyle = {
-        'height': '100%',
-        'display': 'flex',
-        'align-items': 'center',
-        'justify-content': 'center',
-        'padding': '1.3em',
-        'font-size': '0.9em',
-        'font-family': '"JetBrains Mono", monospace',
     }
 
     const progressBarContainerStyle = {
@@ -153,9 +141,14 @@ function FlightData({ trackedFlight }) {
     const airportsStyle = {
         'display': 'flex',
         'justify-content': 'space-between',
+        'flex-direction': 'column'
     }
 
-
+    const rowStyle = {
+        'display': 'flex',
+        'justify-content': 'space-between',
+        'align-items': 'flex-start'
+    }
 
 
     return (
@@ -171,36 +164,43 @@ function FlightData({ trackedFlight }) {
 
                 <Drawer.Content style={innerStyles}>
                     <Drawer.Body style={bodyStyle}>
-
-                        <section style={{ 'width': '90%' }}>
+                        <section>
                             {<h2>Flight {trackedFlight.flight_iata}</h2>}
-                            {airline.found && <h3>{airline.airline}</h3>}
+                            {(trackedFlight.airline_name !== null || airline.found) && <h3>{trackedFlight.airline_name || airline.airline}</h3>}
 
                             <div className="flight-details" style={flightDetailsStyle}>
                                 <article className="airports" style={airportsStyle}>
-                                    <div className="departure">
+
+                                    <div className="headers" style={rowStyle}>
                                         <h3>Departure</h3>
-                                        {airports.found &&
-                                            <p>{airports.departure.airport}</p>
-                                        }
-                                        <p>7hr 36min ago</p>
-                                    </div>
-                                    <div className="arrival" style={{ 'margin-right': '-20px' }}>
                                         <h3>Arrival</h3>
+                                    </div>
+
+                                    <div className="airport-names" style={rowStyle}>
                                         {airports.found &&
-                                            <p>{airports.arrival.airport}</p>
+                                            <p>{trackedFlight.dep_name || airports.departure.airport}</p>
                                         }
-                                        <p>2hr 14min left</p>
+
+                                        {airports.found &&
+                                            <p style={{'text-align': 'right'}}>{trackedFlight.arr_name || airports.arrival.airport}</p>
+                                        }
+                                    </div>
+                                    <div className="times" style={rowStyle}>
+                                        <p>{trackedFlight.dep_estimated || trackedFlight.dep_time}</p>
+                                        <p style={{'text-align': 'right'}}>{trackedFlight.arr_estimated || trackedFlight.arr_time}</p>
                                     </div>
                                 </article>
 
                                 <div className="progress-bar" style={progressBarContainerStyle}>
-                                    <ProgressBar value={50} />
+                                    <ProgressBar value={trackedFlight.percent || trackedFlight.percentCalculated} />
                                 </div>
 
                                 <div className="misc-info">
-                                    <p>30min estimated delay</p>
-                                    <p>Last signal: 2:04PM AEST</p>
+                                    <p>{trackedFlight.delayed || '0'}min delay in arrival</p>
+
+                                    {(trackedFlight.arr_estimated_ts || trackedFlight.arr_time_ts) && <p>Estimated arrival in {trackedFlight.timeRemainingString}</p>}
+
+                                    <p>Last signal: {Math.floor(((Date.now() / 1000) - trackedFlight.updated) / 60) || '0'}min ago</p>
                                 </div>
                             </div>
                         </section>

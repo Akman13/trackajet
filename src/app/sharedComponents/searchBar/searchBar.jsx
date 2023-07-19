@@ -3,7 +3,7 @@ import './searchBar.css'
 
 import { getFullFlightData } from './utils'
 
-import { getFlightDataByFlightIATA } from '../../../utils/apis/flightlabs_api'
+import { getFlightDataByFlightIATA } from '../../../utils/apis/airlabs_api'
 import { getPlansByICAOs, getPlanDataById } from '../../../utils/apis/flightPlanDatabase_api'
 
 function SearchBar({ setTrackedFlight }) {
