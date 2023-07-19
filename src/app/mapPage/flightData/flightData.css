@@ -1,0 +1,7 @@
+/* Containing stylesheet-specific styling ONLY */
+
+@media only screen and (max-width: 350px) {
+    .mantine-Drawer-body {
+        padding: 0.9em;
+    }
+}
