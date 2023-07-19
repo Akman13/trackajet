@@ -9,20 +9,9 @@ import { LeftHandleBar } from "../../../components/leftHandleBar/leftHandleBar"
 import './flightData.css'
 
 
-/* 
-    TODO:
-    Make responsive
 
-    Restructure the HTML for the times & airports to be aligned
 
-    Change the CSS so the RHS is right-justified
-
-    
-    Add a refresh button to update the values on the pane ONLY (refresh top right?)
-    While being refreshed, display a loading icon/deactivate the pane
-    */
-
-function FlightData({ trackedFlight }) {
+function FlightData({ trackedFlight, setTrackedFlight }) {
     const [opened, { open, close }] = useDisclosure(false)
     const [screenSize, setScreenSize] = useState(getCurrentDimension());
     const [yScaleFactor, setYScaleFactor] = useState(null)
@@ -113,7 +102,7 @@ function FlightData({ trackedFlight }) {
 
                 <Drawer.Content style={innerStyles}>
                     <Drawer.Body style={bodyStyle}>
-                        <FlightDataContent trackedFlight={trackedFlight} />
+                        <FlightDataContent trackedFlight={trackedFlight} setTrackedFlight={setTrackedFlight} />
                     </Drawer.Body>
 
                     {opened &&

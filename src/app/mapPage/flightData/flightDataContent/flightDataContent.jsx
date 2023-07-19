@@ -1,13 +1,21 @@
 import { useEffect, useState } from "react"
+import { SlRefresh } from "react-icons/sl"
+import { Button, Loader, LoadingOverlay } from "@mantine/core"
 
 import { ProgressBar } from "./../progressBar/progressBar"
+
+import { getFullFlightData } from './../../../sharedComponents/searchBar/utils'
+import { useDisclosure } from "@mantine/hooks"
 
 const airlinesData = require('./../../../../data/airlines.json')
 const airportsData = [require('./../../../../data/airports.json'), require('./../../../../data/airports_global_db.json')]
 
-function FlightDataContent( {trackedFlight}) {
+
+function FlightDataContent({ trackedFlight, setTrackedFlight }) {
     const [airline, setAirline] = useState({ found: false, airline: null })
     const [airports, setAirports] = useState({ found: false, departure: null, arrival: null })
+    const [isLoading, setIsLoading] = useState(false)
+    const [visible, { open, close }] = useDisclosure(false);
 
     useEffect(() => {
         // Airlines: Searching database & setting
@@ -27,6 +35,24 @@ function FlightDataContent( {trackedFlight}) {
             setAirports({ found: true, departure: airportsFromDatabase.dep, arrival: airportsFromDatabase.arr })
         }
     }, [])
+
+    const handleRefresh = async () => {
+
+        try {
+            open()
+            const flightData = await getFullFlightData(trackedFlight.flight_iata)
+            // console.log('searchBar flightData', flightData)
+            
+            setTrackedFlight(flightData)
+            close()
+
+        } catch (error) {
+            console.log('refresh error', error)
+        }
+
+    }
+
+
 
     const progressBarContainerStyle = {
         'margin': '1.2em 0'
@@ -51,10 +77,29 @@ function FlightDataContent( {trackedFlight}) {
         'align-items': 'flex-start'
     }
 
+    const headerStyle = {
+        'display': 'flex',
+        'justify-content': 'space-between',
+        'align-items': 'center'
+    }
+
+    const buttonStyle = {
+        'padding': '0px',
+        'height': 'min-content',
+    }
+
     return (
         <section>
+            <LoadingOverlay visible={visible} size={"md"} />
             {<h2>Flight {trackedFlight.flight_iata}</h2>}
-            {(trackedFlight.airline_name !== null || airline.found) && <h3>{trackedFlight.airline_name || airline.airline}</h3>}
+            <header style={headerStyle}>
+                {(trackedFlight.airline_name !== null || airline.found) && <h3>{trackedFlight.airline_name || airline.airline}</h3>}
+
+                <Button onClick={handleRefresh} style={buttonStyle} variant="gray" loaderPosition="center">
+                    <SlRefresh size={"1.6em"} color="black" />
+                </Button>
+
+            </header>
 
             <div className="flight-details" style={flightDetailsStyle}>
                 <article className="airports" style={airportsStyle}>
