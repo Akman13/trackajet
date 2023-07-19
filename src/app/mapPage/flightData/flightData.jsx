@@ -15,13 +15,10 @@ const airportsData = [require('./../../../data/airports.json'), require('./../..
 
 /* 
     TODO:
-    Make responsive
+    Move the section into its own component flightDataContent
 
-    Restructure the HTML for the times & airports to be aligned
+    Add a fading popup initially next to the handlebar
 
-    Change the CSS so the RHS is right-justified
-
-    
     Add a refresh button to update the values on the pane ONLY (refresh top right?)
     While being refreshed, display a loading icon/deactivate the pane
     */
