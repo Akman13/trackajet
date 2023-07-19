@@ -141,23 +141,7 @@ function FlightData({ trackedFlight }) {
     const airportsStyle = {
         'display': 'flex',
         'justify-content': 'space-between',
-        // TEST BELOW
         'flex-direction': 'column'
-    }
-
-    const departuresStyle = {
-        'width': '50%',
-        'display': 'flex',
-        'flex-direction': 'column',
-        'justify-content': 'space-between'
-    }
-
-    const arrivalsStyle = {
-        'width': '50%',
-        'text-align': 'right',
-        'display': 'flex',
-        'flex-direction': 'column',
-        'justify-content': 'space-between'
     }
 
     const rowStyle = {
@@ -185,27 +169,6 @@ function FlightData({ trackedFlight }) {
                             {(trackedFlight.airline_name !== null || airline.found) && <h3>{trackedFlight.airline_name || airline.airline}</h3>}
 
                             <div className="flight-details" style={flightDetailsStyle}>
-{/*                                                                 <article className="airports" style={airportsStyle}>
-                                    <div className="departure" style={departuresStyle}>
-                                        <h3>Departure</h3>
-
-                                        {airports.found &&
-                                            <p>{trackedFlight.dep_name || airports.departure.airport}</p>
-                                        }
-
-                                        <p>{trackedFlight.dep_estimated || trackedFlight.dep_time}</p>
-                                    </div>
-                                    <div className="arrival" style={arrivalsStyle}>
-                                        <h3>Arrival</h3>
-
-                                        {airports.found &&
-                                            <p>{trackedFlight.arr_name || airports.arrival.airport}</p>
-                                        }
-
-                                        <p>{trackedFlight.arr_estimated || trackedFlight.arr_time}</p>
-                                    </div>
-                                </article> */}
-
                                 <article className="airports" style={airportsStyle}>
 
                                     <div className="headers" style={rowStyle}>
