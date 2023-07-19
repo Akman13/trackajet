@@ -30,6 +30,8 @@ async function getFullFlightData(flightIata) {
 
     }
 
+    if (flightData['status'] !== 'en-route') throw new Error('This flight is yet to take off.')
+
     return flightData
 }
 

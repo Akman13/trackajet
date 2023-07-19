@@ -12,6 +12,7 @@ import './flightData.css'
 
 
 function FlightData({ trackedFlight, setTrackedFlight }) {
+
     const [opened, { open, close }] = useDisclosure(false)
     const [screenSize, setScreenSize] = useState(getCurrentDimension());
     const [yScaleFactor, setYScaleFactor] = useState(null)
