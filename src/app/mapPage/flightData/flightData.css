@@ -5,3 +5,34 @@
         padding: 0.9em;
     }
 }
+
+#more-info {
+    left: -100px;
+    -webkit-animation: slide 0.5s forwards;
+    -webkit-animation-delay: 2s;
+    animation: slide 0.75s forwards;
+    animation-delay: 0.3s;
+    position: fixed;
+    top: 50%;
+    transform: translate(-50%, -70%);
+    border-radius: 100%;
+    padding: 0px;
+    border: 0px;
+    width: fit-content;
+    height: fit-content;
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+}
+
+@-webkit-keyframes slide {
+    100% {
+        left: 45px;
+    }
+}
+
+@keyframes slide {
+    100% {
+        left: 45px;
+    }
+}

@@ -14,7 +14,6 @@ const airportsData = [require('./../../../../data/airports.json'), require('./..
 function FlightDataContent({ trackedFlight, setTrackedFlight }) {
     const [airline, setAirline] = useState({ found: false, airline: null })
     const [airports, setAirports] = useState({ found: false, departure: null, arrival: null })
-    const [isLoading, setIsLoading] = useState(false)
     const [visible, { open, close }] = useDisclosure(false);
 
     useEffect(() => {

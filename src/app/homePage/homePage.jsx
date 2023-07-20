@@ -1,7 +1,8 @@
 import './homePage.css'
-import {SearchBar} from '../sharedComponents/searchBar/searchBar'
+import { SearchBar } from '../sharedComponents/searchBar/searchBar'
+import { FlightCards } from './flightCards/flightCards'
 
-function HomePage( {setTrackedFlight} ) {
+function HomePage({ setTrackedFlight }) {
 
     const homePageStyle = {
         'color': '#424245',
@@ -19,7 +20,7 @@ function HomePage( {setTrackedFlight} ) {
         <main style={homePageStyle}>
             <h1>TrackAJet</h1>
             <SearchBar setTrackedFlight={setTrackedFlight} />
-
+            <FlightCards setTrackedFlight={setTrackedFlight} />
         </main>
     )
 }

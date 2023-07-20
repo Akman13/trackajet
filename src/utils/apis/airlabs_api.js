@@ -25,5 +25,14 @@ function getNewDataByFlightIATA(iataCode) {
         .then(res => res.json())
 }
 
+function getFlightsByBbox(bbox) {
+    const url = `https://airlabs.co/api/v9/flights?api_key=${process.env.REACT_APP_AIRLAB_API_KEY}&bbox=${bbox}`
 
-export { getFlightDataByFlightIATA, getFlightDataByFlightICAO, getNewDataByFlightIATA }
+    return fetch(url, {
+        methods: 'GET',
+    })
+        .then(res => res.json())
+}
+
+
+export { getFlightDataByFlightIATA, getFlightDataByFlightICAO, getNewDataByFlightIATA, getFlightsByBbox }

@@ -1,0 +1,86 @@
+.flight-cards {
+    width: 60%;
+    max-width: 1000px;
+    margin-top: 1.3em;
+}
+
+.flight-cards .caption {
+    margin-left: 2em;
+    font-style: italic;
+}
+
+.flight {
+    margin: 0.2em 0em;
+    text-align: center;
+    font-weight: bold;
+}
+
+.cards-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%/3, max(64px, 100%/4)), 1fr));
+    gap: 10px;
+    background-color: #f5f5f7;
+    border-radius: 10px;
+    /* width: 70%; */
+    margin: 0 auto;
+}
+
+.flight-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    padding: 0.15em;
+    font-size: 1em;
+    margin: 6px 3px;
+    background-color: mistyrose;
+    border-radius: 10px;
+    box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+    cursor: pointer;
+    font-family: "JetBrains Mono", monospace;
+    list-style: none;
+    transition: box-shadow .15s, transform .15s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    will-change: box-shadow, transform;
+}
+
+.airport-names {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.airport-names span {
+    margin-left: 0.1em
+}
+
+.flight-card .departure, .flight-card .arrival {
+    margin: 0.6em 0.5em;
+    display: flex;
+    align-items: flex-start;
+}
+
+.departure p, .arrival p {
+    font-weight: bold;
+}
+
+.flight-card:focus {
+    box-shadow: #D6D6E7 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+}
+
+.flight-card:hover {
+    box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+    transform: translateY(-2px);
+}
+
+.flight-card:active {
+    box-shadow: #D6D6E7 0 3px 7px inset;
+    transform: translateY(2px);
+}
+
+
+
+
