@@ -18,9 +18,12 @@ function checkFlightValidity(flight) {
         airportsData[1].find(airport => airport.icao === flight.arr_icao) !== undefined
     )
 
+    // Search the airline in the DB
+    const isAirlineInDB = airlinesData.find(airline => airline.ICAO === flight.airline_icao) !== undefined
+
     console.log('checkFlightValidity: flight, isDepAirportInDB, isArrAirportInDB', flight, isDepAirportInDB, isArrAirportInDB)
 
-    if (isFlightEnroute && isDepAirportInDB && isArrAirportInDB) return true
+    if (isFlightEnroute && isDepAirportInDB && isArrAirportInDB && isAirlineInDB) return true
     else return false
 }
 
@@ -35,8 +38,16 @@ function getAirportAirlineNames(flight) {
             airportsData[1].find(airport => airport.icao === flight.arr_icao)
 
         flight.dep_name_db = depAirport.airport
+        if (!flight.dep_name_db.toLowerCase().includes('airport')) {
+            console.log('departure airport doesnt have airport in it')
+            flight.dep_name_db = depAirport.airport + ' Airport'
+        }
 
         flight.arr_name_db = arrAirport.airport
+        if (!flight.arr_name_db.toLowerCase().includes('airport')) {
+            console.log('arrival airport doesnt have airport in it')
+            flight.arr_name_db = arrAirport.airport + ' Airport'
+        }
 
         flight.airline_db = airlinesData.find(airline => airline.ICAO === flight.airline_icao).Airline
     } catch (error) {

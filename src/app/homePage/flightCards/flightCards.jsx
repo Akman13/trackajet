@@ -1,7 +1,10 @@
-/* TODO:
-1. OnClick of any of them, run them through the same functions as a searchBar input
-1. Make all the cards the same height
+/* BUG FIXES:
+1. Flightcard displays despite it not having an airline or a flight number to be shown
+2. Various empty fields still occasionally display
+3. When clicking flightCard, flightDatacontent can be incorrect
+*/
 
+/* TODO:
 2. Rework the responsiveness for smaller screens
 
 2. Add an Overlay feature that is on while the fetches are being made. Says something like "Fetching local flights..."
@@ -48,13 +51,12 @@ function FlightCards( {setTrackedFlight} ) {
 			console.log('flightCards error after clicking', error)
 		}
 
-        // TODO: Upon click, need to subject this flight to the same functions that are run on the searchBar utils file
     }
 
 
     return (
         <section className="flight-cards">
-            <p className="caption">No flight in mind? Here are some local flights in your area!</p>
+            <p className="caption">Nothing in mind? How about a flight from around the world!</p>
 
             <section className="cards-list">
 

@@ -87,6 +87,14 @@ function FlightDataContent({ trackedFlight, setTrackedFlight }) {
         'height': 'min-content',
     }
 
+    const rightAlignedStyle = {
+        'text-align': 'right'
+    }
+
+    const evenWidthStyle = {
+        'width': '50%'
+    }
+
     return (
         <section>
             <LoadingOverlay visible={visible} size={"md"} />
@@ -108,18 +116,18 @@ function FlightDataContent({ trackedFlight, setTrackedFlight }) {
                         <h3>Arrival</h3>
                     </div>
 
-                    <div className="airport-names" style={rowStyle}>
+                    <div style={rowStyle}>
                         {airports.found &&
-                            <p>{trackedFlight.dep_name || airports.departure.airport}</p>
+                            <p style={evenWidthStyle}>{trackedFlight.dep_name || airports.departure.airport}</p>
                         }
 
                         {airports.found &&
-                            <p style={{ 'text-align': 'right' }}>{trackedFlight.arr_name || airports.arrival.airport}</p>
+                            <p style={{ ...rightAlignedStyle, ...evenWidthStyle }}>{trackedFlight.arr_name || airports.arrival.airport}</p>
                         }
                     </div>
                     <div className="times" style={rowStyle}>
                         <p>{trackedFlight.dep_estimated || trackedFlight.dep_time}</p>
-                        <p style={{ 'text-align': 'right' }}>{trackedFlight.arr_estimated || trackedFlight.arr_time}</p>
+                        <p style={{ ...rightAlignedStyle }}>{trackedFlight.arr_estimated || trackedFlight.arr_time}</p>
                     </div>
                 </article>
 
