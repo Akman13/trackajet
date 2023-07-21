@@ -6,7 +6,8 @@ const airlinesData = require('./../../../data/airlines.json')
 
 
 function checkFlightValidity(flight) {
-    const isFlightEnroute = flight.status === 'en-route'
+    const isFlightEnroute = flight.status === 'en-route' && flight.speed > 100
+    const hasFlightIata = flight.flight_iata !== undefined || null
 
     // Search the airport codes in the DBs
     const isDepAirportInDB = (
@@ -23,7 +24,7 @@ function checkFlightValidity(flight) {
 
     console.log('checkFlightValidity: flight, isDepAirportInDB, isArrAirportInDB', flight, isDepAirportInDB, isArrAirportInDB)
 
-    if (isFlightEnroute && isDepAirportInDB && isArrAirportInDB && isAirlineInDB) return true
+    if (isFlightEnroute && hasFlightIata && isDepAirportInDB && isArrAirportInDB && isAirlineInDB && hasFlightIata) return true
     else return false
 }
 
@@ -39,13 +40,11 @@ function getAirportAirlineNames(flight) {
 
         flight.dep_name_db = depAirport.airport
         if (!flight.dep_name_db.toLowerCase().includes('airport')) {
-            console.log('departure airport doesnt have airport in it')
             flight.dep_name_db = depAirport.airport + ' Airport'
         }
 
         flight.arr_name_db = arrAirport.airport
         if (!flight.arr_name_db.toLowerCase().includes('airport')) {
-            console.log('arrival airport doesnt have airport in it')
             flight.arr_name_db = arrAirport.airport + ' Airport'
         }
 

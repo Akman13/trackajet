@@ -13,6 +13,7 @@ function HomePage({ setTrackedFlight }) {
         'height': '100vh',
         'font-family': 'SF Pro Text,SF Pro Icons,AOS Icons,Helvetica Neue,Helvetica,Arial,sans-serif',
         'background-color': '#f5f5f7',
+        'padding-top': '9.3em'
     }
 
 
