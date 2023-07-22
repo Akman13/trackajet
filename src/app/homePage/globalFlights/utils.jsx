@@ -18,7 +18,7 @@ function checkFlightValidity(flight) {
         airportsData[0].find(airport => airport.icao === flight.arr_icao)?.airport ??
         airportsData[1].find(airport => airport.icao === flight.arr_icao)?.airport
 
-    const areAirportNamesShort = (depAirport?.length < 41 && arrAirport?.length < 41
+    const areAirportNamesShort = (depAirport?.length < 37 && arrAirport?.length < 37
     ) ?? undefined
 
     // Verify if the airports exist in the DB

@@ -1,17 +1,15 @@
-.carousel-flights-container {
+.flights-carousel-container {
     position: relative;
     width: 80%;
     max-width: 1000px;
     margin-top: 1.3em;
 }
 
-.carousel-flights-container .caption {
-    margin-left: 1em;
+.flights-carousel-container .caption {
+    text-align: center;
     font-style: italic;
     margin-bottom: 0.1em;
 }
-/* The above is to be moved into the flightCarousel subdir */
-
 
 .flight-cards-container {
     position: relative;
@@ -88,7 +86,7 @@
     align-items: flex-start;
 }
 
-.carousel-flights-container .departure, .carousel-flights-container .arrival {
+.flights-carousel-container .departure, .flights-carousel-container .arrival {
     min-height: 4.2em;
     margin: 0.4em 1em;
     display: flex;
@@ -112,7 +110,3 @@
     box-shadow: #D6D6E7 0 3px 7px inset;
     transform: translateY(2px);
 }
-
-
-
-

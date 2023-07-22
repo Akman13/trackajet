@@ -60,7 +60,7 @@ function GlobalFlights({ setTrackedFlight }) {
             }
 
             {isSmallScreen &&
-                <div className="carousel-flights-container">
+                <div className="flights-carousel-container">
 
                     <p className="caption">No flight in mind? Here are some flights from around the world!</p>
 
