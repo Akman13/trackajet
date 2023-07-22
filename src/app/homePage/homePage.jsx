@@ -1,8 +1,13 @@
 import './homePage.css'
 import { SearchBar } from '../sharedComponents/searchBar/searchBar'
-import { FlightCards } from './flightCards/flightCards'
+import { GlobalFlights } from './globalFlights/globalFlights'
+import { useEffect, useState } from 'react'
+/* TODO:
+Create a carousel/slider component to display the flight cards
+Consider pushing this down into FlightCards, and passing to it the prop of isSmallScreen from here */
 
 function HomePage({ setTrackedFlight }) {
+
 
     const homePageStyle = {
         'color': '#424245',
@@ -21,7 +26,7 @@ function HomePage({ setTrackedFlight }) {
         <main style={homePageStyle}>
             <h1>TrackAJet</h1>
             <SearchBar setTrackedFlight={setTrackedFlight} />
-            <FlightCards setTrackedFlight={setTrackedFlight} />
+            <GlobalFlights setTrackedFlight={setTrackedFlight} />
         </main>
     )
 }

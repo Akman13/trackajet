@@ -10,21 +10,27 @@ function checkFlightValidity(flight) {
     const hasFlightIata = flight.flight_iata !== undefined || null
 
     // Search the airport codes in the DBs
-    const isDepAirportInDB = (
-        airportsData[0].find(airport => airport.icao === flight.dep_icao) !== undefined ||
-        airportsData[1].find(airport => airport.icao === flight.dep_icao) !== undefined
-    )
-    const isArrAirportInDB = (
-        airportsData[0].find(airport => airport.icao === flight.arr_icao) !== undefined ||
-        airportsData[1].find(airport => airport.icao === flight.arr_icao) !== undefined
-    )
+    const depAirport =
+        airportsData[0].find(airport => airport.icao === flight.dep_icao)?.airport ??
+        airportsData[1].find(airport => airport.icao === flight.dep_icao)?.airport
+
+    const arrAirport =
+        airportsData[0].find(airport => airport.icao === flight.arr_icao)?.airport ??
+        airportsData[1].find(airport => airport.icao === flight.arr_icao)?.airport
+
+    const areAirportNamesShort = (depAirport?.length < 41 && arrAirport?.length < 41
+    ) ?? undefined
+
+    // Verify if the airports exist in the DB
+    const isDepAirportInDB = depAirport !== undefined
+    const isArrAirportInDB = arrAirport !== undefined
+
 
     // Search the airline in the DB
     const isAirlineInDB = airlinesData.find(airline => airline.ICAO === flight.airline_icao) !== undefined
 
-    console.log('checkFlightValidity: flight, isDepAirportInDB, isArrAirportInDB', flight, isDepAirportInDB, isArrAirportInDB)
 
-    if (isFlightEnroute && hasFlightIata && isDepAirportInDB && isArrAirportInDB && isAirlineInDB && hasFlightIata) return true
+    if (isFlightEnroute && hasFlightIata && isDepAirportInDB && isArrAirportInDB && isAirlineInDB && hasFlightIata && areAirportNamesShort) return true
     else return false
 }
 
@@ -74,11 +80,9 @@ async function getTopFlightsInBbox(bbox = anzBbox) {
         topSixFlights.push(...randomPicks)
     }
 
-    console.log('flightCards util topSixFlights after validation before addition', topSixFlights)
 
     topSixFlights.forEach(flight => getAirportAirlineNames(flight))
 
-    console.log('topSixFlights', topSixFlights)
     return topSixFlights
 }
 

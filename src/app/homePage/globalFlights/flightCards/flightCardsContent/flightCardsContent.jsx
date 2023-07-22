@@ -1,6 +1,6 @@
-import { getFullFlightData } from "./../../../sharedComponents/searchBar/utils"
-import { LoadingOverlay } from "@mantine/core"
 import { createRef, useRef, useState } from "react";
+import { getFullFlightData } from "../../../../sharedComponents/searchBar/utils"
+import { LoadingOverlay } from "@mantine/core"
 
 /* 
 onClick for any of the articles... -> set an loadingOverlay on top of each one
@@ -8,14 +8,14 @@ Each article needs its unique identifier, that when clicked, signals for its uni
  */
 
 
-function FlightCardsContent({ sixLocalFlights, setTrackedFlight }) {
+function FlightCardsContent({ sixGlobalFlights, setTrackedFlight }) {
 
     const [loaderVisible, setLoaderVisible] = useState({ 0: false, 1: false, 2: false, 3: false, 4: false, 5: false });
     const loadingRefs = useRef([])
-    loadingRefs.current = sixLocalFlights.map((element, i) => loadingRefs.current[i] ?? createRef());
+    loadingRefs.current = sixGlobalFlights.map((element, i) => loadingRefs.current[i] ?? createRef());
 
 
-    const handleReactClick = async (ref) => {
+    const handleCardClick = async (ref) => {
         const flightIata = ref.current.dataset.flight_num
         const cardIndex = Object.keys(loadingRefs.current).filter(key => loadingRefs.current[key] === ref)[0]
 
@@ -42,8 +42,8 @@ function FlightCardsContent({ sixLocalFlights, setTrackedFlight }) {
 
     return (
         <>
-            {sixLocalFlights.map((flight, index) => (
-                <article onClick={() => handleReactClick(loadingRefs.current[index])} key={index} className='flight-card' data-flight_num={flight['flight_iata']} ref={loadingRefs.current[index]}>
+            {sixGlobalFlights.map((flight, index) => (
+                <article onClick={() => handleCardClick(loadingRefs.current[index])} key={index} className='flight-card' data-flight_num={flight['flight_iata']} ref={loadingRefs.current[index]}>
                     <LoadingOverlay overlayBlur={1} overlayOpacity={0.3} overlayColor="#f5f5f7" visible={loaderVisible[index]} loaderProps={{ 'variant': 'dots', 'size': 'xl' }} />
 
                     <p className="flight">✈️ {flight['flight_iata']}    {flight['airline_db']} </p>
