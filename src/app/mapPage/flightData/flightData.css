@@ -7,22 +7,20 @@
 }
 
 #more-info {
+    position: fixed;
     left: -100px;
     -webkit-animation: slide 0.5s forwards;
     -webkit-animation-delay: 2s;
     animation: slide 0.75s forwards;
     animation-delay: 0.3s;
-    position: fixed;
     top: 50%;
-    transform: translate(-50%, -70%);
+    transform: translate(-50%, -75%);
     border-radius: 100%;
     padding: 0px;
     border: 0px;
     width: fit-content;
     height: fit-content;
-    /* display: flex;
-    justify-content: center;
-    align-items: center; */
+    opacity: 0.8;
 }
 
 @-webkit-keyframes slide {

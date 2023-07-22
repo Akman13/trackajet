@@ -1,6 +1,5 @@
-import { Button, Drawer, Transition } from "@mantine/core"
+import { Button, Drawer } from "@mantine/core"
 import { BsInfoCircle } from "react-icons/bs"
-import { IoIosCloseCircleOutline } from "react-icons/io"
 
 import { useEffect, useState } from "react"
 
@@ -16,8 +15,8 @@ import './flightData.css'
 
 function FlightData({ trackedFlight, setTrackedFlight }) {
 
-    const [overlayOpened, { open, close }] = useDisclosure(false)
-    const [moreInfoShown, setMoreInfoShown] = useState(true)
+    const [overlayOpened, { open: openOverlay, close: closeOverlay }] = useDisclosure(false)
+    const [moreInfoShown, { close: closeMoreInfoShown }] = useDisclosure(true)
     const [screenSize, setScreenSize] = useState(getCurrentDimension());
     const [yScaleFactor, setYScaleFactor] = useState(null)
 
@@ -93,7 +92,7 @@ function FlightData({ trackedFlight, setTrackedFlight }) {
         'height': '100%'
     }
 
-    const closeInfoButtonStyle = {
+/*     const closeInfoButtonStyle = {
         'position': 'absolute',
         'top': '0%',
         'right': '0%',
@@ -102,15 +101,15 @@ function FlightData({ trackedFlight, setTrackedFlight }) {
         'border-radius': '100%',
         'border': '0px',
         'background-color': 'white'
-
-    }
+    } */
+  
 
     return (
         <>
             <Drawer.Root
                 position="left"
                 opened={overlayOpened}
-                onClose={close}
+                onClose={closeOverlay}
                 withOverlay={false}
                 closeOnClickOutside={false}
                 withCloseButton={true}
@@ -125,7 +124,7 @@ function FlightData({ trackedFlight, setTrackedFlight }) {
                         <div style={handleOpenParentStyle}>
 
                             <div style={handleOpenStyle}>
-                                <LeftHandleBar yScaleFactor={yScaleFactor} close={close} opened={overlayOpened} />
+                                <LeftHandleBar yScaleFactor={yScaleFactor} close={closeOverlay} opened={overlayOpened} />
                             </div>
                         </div>}
                     <Drawer.Body style={{ 'padding': '0px' }}>
@@ -134,13 +133,16 @@ function FlightData({ trackedFlight, setTrackedFlight }) {
 
             </Drawer.Root>
 
-            {/* {(moreInfoShown && !overlayOpened) && <Button variant="white" id="more-info">
-                <BsInfoCircle size={"30px"} />
-                <IoIosCloseCircleOutline id="close-info" style={closeInfoButtonStyle} />
-            </Button>} */}
+            {(moreInfoShown && !overlayOpened) &&
+                <div>
+                    <Button variant="white" id="more-info" onClick={closeMoreInfoShown}>
+                        <BsInfoCircle size={"30px"} />
+                    </Button>
+                </div>
+            }
 
             {!overlayOpened && <div style={handleClosedStyle}>
-                <LeftHandleBar yScaleFactor={yScaleFactor} open={open} />
+                <LeftHandleBar yScaleFactor={yScaleFactor} open={openOverlay} />
             </div>}
 
 

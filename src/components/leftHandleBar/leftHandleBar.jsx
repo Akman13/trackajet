@@ -18,9 +18,9 @@ function LeftHandleBar({ open, close, opened, yScaleFactor }) {
             {/* Scale: scaling the svg to stretch/shrink the height whilst the width is constant */}
             <filter id="dropshadow" height="130%" width="200%">
                 <feGaussianBlur in="SourceAlpha" stdDeviation="3" /> {/* <!-- stdDeviation is how much to blur --> */}
-                <feOffset dx="1.5" dy="2" result="offsetblur" /> {/* <!-- how much to offset --> */}
+                <feOffset dx="0.9" dy="2" result="offsetblur" /> {/* <!-- how much to offset --> */}
                 <feComponentTransfer>
-                    <feFuncA type="linear" slope="0.9" />  {/* <!-- slope is the opacity of the shadow --> */}
+                    <feFuncA type="linear" slope="1.3" />  {/* <!-- slope is the opacity of the shadow --> */}
                 </feComponentTransfer>
                 <feMerge>
                     <feMergeNode />  {/* <!-- this contains the offset blurred image --> */}
