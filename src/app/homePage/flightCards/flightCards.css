@@ -15,6 +15,7 @@
 }
 
 .flight {
+    min-height: 50px;
     margin: 0.2em 0em;
     text-align: center;
     font-weight: bold;
