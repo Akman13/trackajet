@@ -1,3 +1,7 @@
+/* 
+BUG FIXES:
+1. "Estimated arrival in..." not displaying a number despite there being arrival and departure times */
+
 import { useEffect, useState } from "react"
 import { SlRefresh } from "react-icons/sl"
 import { Button, Loader, LoadingOverlay } from "@mantine/core"

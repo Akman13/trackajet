@@ -1,3 +1,16 @@
+.flights-carousel-container {
+    position: relative;
+    width: 80%;
+    max-width: 1000px;
+    margin-top: 1.3em;
+}
+
+.flights-carousel-container .caption {
+    text-align: center;
+    font-style: italic;
+    margin-bottom: 0.1em;
+}
+
 .flight-cards-container {
     position: relative;
     width: 60%;
@@ -66,8 +79,15 @@
     margin-left: 0.1em
 }
 
-.flight-card .departure, .flight-card .arrival {
+.flight-cards-container .departure, .flight-cards-container .arrival {
     min-height: 2.5em;
+    margin: 0.4em 1em;
+    display: flex;
+    align-items: flex-start;
+}
+
+.flights-carousel-container .departure, .flights-carousel-container .arrival {
+    min-height: 4.2em;
     margin: 0.4em 1em;
     display: flex;
     align-items: flex-start;
@@ -90,7 +110,3 @@
     box-shadow: #D6D6E7 0 3px 7px inset;
     transform: translateY(2px);
 }
-
-
-
-
