@@ -1,13 +1,10 @@
 /* BUG FIXES:
-0. Non-passenger flights appear and cannot be tracked if clicked as they don't have a flightIata. --> Check for flightIata
-
 1. Flightcard displays despite it not having an airline or a flight number to be shown
 2. Various empty fields still occasionally display
 */
 
 /* TODO:
 2. Rework the responsiveness for smaller screens
-
 */
 
 import { useEffect, useState } from "react"
