@@ -11,6 +11,10 @@
     margin-bottom: 0.1em;
 }
 
+.flights-carousel {
+    position: relative;
+}
+
 .flight-cards-container {
     position: relative;
     width: 60%;
