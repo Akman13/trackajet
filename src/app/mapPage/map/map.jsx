@@ -1,7 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react'
-import { GoogleMap, LoadScript, Polyline, Marker } from '@react-google-maps/api'
+import React, { useState, useEffect } from 'react'
+import { GoogleMap, LoadScript, Polyline, Marker, OverlayView } from '@react-google-maps/api'
 
-import planeIcon from '../../../assets/plane.png'
+
+import { PlaneSvg } from './planeSvg/planeSvg'
+
 import './map.css'
 
 const containerStyle = {
@@ -40,25 +42,21 @@ const initialCenter = {
     lng: -38.523,
 }
 
-const elonJetCenter = {
-    lat: 33.92074,
-    lng: -118.32704,
-}
 
 function Map({ trackedFlight }) {
     const [center, setCenter] = useState(initialCenter)
     const [traversedPath, setTraversedPath] = useState([])
     const [unTraversedPath, setUntraversedPath] = useState([])
 
-
+    const getPixelPositionOffset = (width, height) => ({
+        x: -(width / 2),
+        y: -(height / 2),
+    })
 
     useEffect(() => {
         const pathProximities = trackedFlight['path'].map((node, index) => Math.sqrt((node['lat'] - trackedFlight['lat']) ** 2 + (node['lon'] - trackedFlight['lng']) ** 2))
-        // console.log('maps trackedFlight', trackedFlight)
 
         const nearestNodeIndex = pathProximities.indexOf(Math.min(...pathProximities))
-
-        // console.log('nearestNodeIndex', nearestNodeIndex)
 
         setCenter({
             lat: trackedFlight['path'][nearestNodeIndex]['lat'],
@@ -96,12 +94,11 @@ function Map({ trackedFlight }) {
                     <Polyline path={unTraversedPath} options={unTraversedPathOptions} />
                     <Polyline path={traversedPath} options={traversedPathOptions} />
 
-                    <Marker
-                        position={center}
-                        icon={{
-                            url: planeIcon,
-                        }} />
-
+                    <OverlayView position={center} mapPaneName={OverlayView.MARKER_LAYER} getPixelPositionOffset={getPixelPositionOffset}>
+                        <div style={{ 'width': '50px', 'height': '50px', 'transform': `rotate(${trackedFlight.dir}deg)` }}>
+                            <PlaneSvg />
+                        </div>
+                    </OverlayView>
                 </GoogleMap>
 
             </LoadScript>

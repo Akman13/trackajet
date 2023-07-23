@@ -2,12 +2,6 @@ import { createRef, useRef, useState } from "react";
 import { getFullFlightData } from "../../../../sharedComponents/searchBar/utils"
 import { LoadingOverlay } from "@mantine/core"
 
-/* 
-onClick for any of the articles... -> set an loadingOverlay on top of each one
-Each article needs its unique identifier, that when clicked, signals for its unique overlay to activate
- */
-
-
 function FlightCardsContent({ sixGlobalFlights, setTrackedFlight }) {
 
     const [loaderVisible, setLoaderVisible] = useState({ 0: false, 1: false, 2: false, 3: false, 4: false, 5: false });
@@ -20,7 +14,6 @@ function FlightCardsContent({ sixGlobalFlights, setTrackedFlight }) {
         const cardIndex = Object.keys(loadingRefs.current).filter(key => loadingRefs.current[key] === ref)[0]
 
         // Make them all false
-
         let loaderVisibleCopy = { ...loaderVisible }
         Object.keys(loaderVisibleCopy).forEach(value => loaderVisibleCopy[value] = false)
         loaderVisibleCopy[cardIndex] = true

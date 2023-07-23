@@ -39,6 +39,10 @@ function FlightData({ trackedFlight, setTrackedFlight }) {
         })
     }, [screenSize])
 
+    const handleInfoClick = () => {
+        openOverlay()
+    }
+
     const innerStyles = {
         'position': 'relative',
         'height': `${746 * yScaleFactor / 0.79}px`,
@@ -120,7 +124,7 @@ function FlightData({ trackedFlight, setTrackedFlight }) {
             {(moreInfoShown && !overlayOpened) &&
                 <div>
                     <Button variant="white" id="more-info" onClick={closeMoreInfoShown}>
-                        <BsInfoCircle size={"30px"} />
+                        <BsInfoCircle onClick={handleInfoClick} size={"30px"} />
                     </Button>
                 </div>
             }
