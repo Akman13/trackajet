@@ -1,7 +1,3 @@
-/* BUG FIXES:
-1. Flightcard displays despite it not having an airline or a flight number to be shown
-2. Various empty fields still occasionally display
-*/
 import { useEffect, useState } from "react"
 
 import { getTopFlightsInBbox } from "./utils"
@@ -61,9 +57,7 @@ function GlobalFlights({ setTrackedFlight }) {
 
             {isSmallScreen &&
                 <div className="flights-carousel-container">
-
                     <p className="caption">No flight in mind? Here are some flights from around the world!</p>
-
                     <FlightCarousel setTrackedFlight={setTrackedFlight} globalFlightsFetched={globalFlightsFetched} sixGlobalFlights={sixGlobalFlights} />
                 </div>
             }

@@ -100,7 +100,7 @@ function FlightDataContent({ trackedFlight, setTrackedFlight }) {
     }
 
     return (
-        <section>
+        <section className="flight-data-content">
             <LoadingOverlay visible={visible} size={"md"} />
             {<h2>Flight {trackedFlight.flight_iata}</h2>}
             <header style={headerStyle}>

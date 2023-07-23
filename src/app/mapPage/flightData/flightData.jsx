@@ -1,17 +1,13 @@
-import { Button, Drawer } from "@mantine/core"
-import { BsInfoCircle } from "react-icons/bs"
-
 import { useEffect, useState } from "react"
 
+import { Button, Drawer } from "@mantine/core"
 import { useDisclosure } from "@mantine/hooks"
+import { BsInfoCircle } from "react-icons/bs"
 
 import { FlightDataContent } from "./flightDataContent/flightDataContent"
 import { LeftHandleBar } from "../../../components/leftHandleBar/leftHandleBar"
 
 import './flightData.css'
-
-
-
 
 function FlightData({ trackedFlight, setTrackedFlight }) {
 
@@ -91,18 +87,6 @@ function FlightData({ trackedFlight, setTrackedFlight }) {
         'width': '100%',
         'height': '100%'
     }
-
-/*     const closeInfoButtonStyle = {
-        'position': 'absolute',
-        'top': '0%',
-        'right': '0%',
-        'transform': 'translate(0%, -20%)',
-        'z-index': '100',
-        'border-radius': '100%',
-        'border': '0px',
-        'background-color': 'white'
-    } */
-  
 
     return (
         <>

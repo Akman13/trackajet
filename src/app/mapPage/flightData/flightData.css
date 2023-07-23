@@ -6,6 +6,16 @@
     }
 }
 
+@media only screen and (max-width: 768px) {
+    .mantine-Drawer-body {
+        padding: 0.6em;
+    }
+
+    .flight-data-content h2 {
+        margin: 0.1em;
+    }
+}
+
 #more-info {
     position: fixed;
     left: -100px;

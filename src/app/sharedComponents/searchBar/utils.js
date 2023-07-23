@@ -20,6 +20,7 @@ async function getFullFlightData(flightIata) {
         const timeRemainingMins = Math.floor(((flightData.arr_estimated_ts || flightData.arr_time_ts) - (Date.now() / 1000)) / 60)
         const timeRemainingString = Math.floor(timeRemainingMins % 60) == 0 ? `${timeRemainingMins / 60}hr` : `${Math.floor(timeRemainingMins / 60)}hr and ${Math.floor(timeRemainingMins - Math.floor(timeRemainingMins / 60)*60)}min`
         flightData['timeRemainingString'] = timeRemainingString
+        // console.log('timeRemainingString', flightData['timeRemainingString'])
 
     } catch (error) {
 

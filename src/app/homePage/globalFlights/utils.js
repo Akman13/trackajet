@@ -1,8 +1,8 @@
 import { getFlightsByBbox } from "../../../utils/apis/airlabs_api";
 const _ = require('lodash')
 
-const airportsData = [require('./../../../data/airports.json'), require('./../../../data/airports_global_db.json')]
-const airlinesData = require('./../../../data/airlines.json')
+const airportsData = [require('../../../data/airports.json'), require('../../../data/airports_global_db.json')]
+const airlinesData = require('../../../data/airlines.json')
 
 
 function checkFlightValidity(flight) {
