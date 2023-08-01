@@ -28,10 +28,8 @@ After fully implementing the components in this flow, the flight cards display o
 - When viewing a live flight on the map page, additional information of the flight can be viewed by accessing the left-hand information pane. You can also request a live version of this information by clicking the refresh button in the pane.
 - The flight's path is split in two around its current location, with each of the traversed and untraversed lines displayed on the Google map with different styling
 
-
-<!-- Gif here -->
-
-<!-- Gif here -->
+![Fullscreen App navigation](https://github.com/Akman13/trackajet/blob/main/gifs/jet-tracked-fullscreen.gif)
+![Responsive App navigation](https://github.com/Akman13/trackajet/blob/main/gifs/jet-tracked-mobile.gif)
 
 ## Bugs
 There are currently two known bugs which are being investigated:
