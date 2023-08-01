@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { GoogleMap, LoadScript, Polyline, Marker, OverlayView } from '@react-google-maps/api'
+import { GoogleMap, LoadScript, Polyline, OverlayView } from '@react-google-maps/api'
 
 
 import { PlaneSvg } from './planeSvg/planeSvg'

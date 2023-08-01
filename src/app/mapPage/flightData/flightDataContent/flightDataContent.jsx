@@ -4,7 +4,7 @@ BUG FIXES:
 
 import { useEffect, useState } from "react"
 import { SlRefresh } from "react-icons/sl"
-import { Button, Loader, LoadingOverlay } from "@mantine/core"
+import { Button, LoadingOverlay } from "@mantine/core"
 
 import { ProgressBar } from "./../progressBar/progressBar"
 
