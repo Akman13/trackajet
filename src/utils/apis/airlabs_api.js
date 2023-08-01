@@ -1,12 +1,3 @@
-function getFlightDataByFlightIATA(iataCode) {
-    const url = `https://airlabs.co/api/v9/flights?api_key=${process.env.REACT_APP_AIRLAB_API_KEY}&flight_iata=${iataCode}`
-
-    return fetch(url, {
-        methods: 'GET',
-    })
-        .then(res => res.json())
-}
-
 function getFlightDataByFlightICAO(icaoCode) {
     const url = `https://airlabs.co/api/v9/flights?api_key=${process.env.REACT_APP_AIRLAB_API_KEY}&flight_icao=${icaoCode}`
 
@@ -16,7 +7,7 @@ function getFlightDataByFlightICAO(icaoCode) {
         .then(res => res.json())
 }
 
-function getNewDataByFlightIATA(iataCode) {
+function getFlightDataByFlightIATA(iataCode) {
     const url = `https://airlabs.co/api/v9/flight?api_key=${process.env.REACT_APP_AIRLAB_API_KEY}&flight_iata=${iataCode}`
 
     return fetch(url, {
@@ -35,4 +26,4 @@ function getFlightsByBbox(bbox) {
 }
 
 
-export { getFlightDataByFlightIATA, getFlightDataByFlightICAO, getNewDataByFlightIATA, getFlightsByBbox }
+export { getFlightDataByFlightICAO, getFlightDataByFlightIATA, getFlightsByBbox }

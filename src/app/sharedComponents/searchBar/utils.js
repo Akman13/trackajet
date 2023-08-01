@@ -1,10 +1,9 @@
-import { getFlightDataByFlightIATA, getNewDataByFlightIATA } from '../../../utils/apis/airlabs_api'
+import { getFlightDataByFlightIATA } from '../../../utils/apis/airlabs_api'
 import { getPlansByICAOs, getPlanDataById } from '../../../utils/apis/flightPlanDatabase_api'
 import { getFlightTrack } from '../../../utils/apis/opensky_api'
 
 async function getFullFlightData(flightIata) {
-    // const flightData = await getFlightDataByFlightIATA(flightIata).then(res => res['response'][0])
-    const flightData = await getNewDataByFlightIATA(flightIata).then(res => res['response'])
+    const flightData = await getFlightDataByFlightIATA(flightIata).then(res => res['response'])
 
     try {
 
@@ -40,4 +39,4 @@ async function getFlightTrackData(icaoHex) {
     return await getFlightTrack(icaoHex.toLowerCase())
 }
 
-export { getFullFlightData, getNewDataByFlightIATA }
+export { getFullFlightData }

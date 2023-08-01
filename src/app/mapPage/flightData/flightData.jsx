@@ -5,7 +5,7 @@ import { useDisclosure } from "@mantine/hooks"
 import { BsInfoCircle } from "react-icons/bs"
 
 import { FlightDataContent } from "./flightDataContent/flightDataContent"
-import { LeftHandleBar } from "../../../components/leftHandleBar/leftHandleBar"
+import { LeftHandleBar } from "../../../uiComponents/leftHandleBar/leftHandleBar"
 
 import './flightData.css'
 
