@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/trackajet/static/css/main.f8c8e1f0.css",
-    "main.js": "/trackajet/static/js/main.18c94361.js",
+    "main.css": "/trackajet/static/css/main.3dfa89d0.css",
+    "main.js": "/trackajet/static/js/main.662302b2.js",
     "index.html": "/trackajet/index.html",
-    "main.f8c8e1f0.css.map": "/trackajet/static/css/main.f8c8e1f0.css.map",
-    "main.18c94361.js.map": "/trackajet/static/js/main.18c94361.js.map"
+    "main.3dfa89d0.css.map": "/trackajet/static/css/main.3dfa89d0.css.map",
+    "main.662302b2.js.map": "/trackajet/static/js/main.662302b2.js.map"
   },
   "entrypoints": [
-    "static/css/main.f8c8e1f0.css",
-    "static/js/main.18c94361.js"
+    "static/css/main.3dfa89d0.css",
+    "static/js/main.662302b2.js"
   ]
 }
