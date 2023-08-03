@@ -3,14 +3,21 @@
 }
 
 .flight-search {
-	margin-bottom: 2rem;
 	margin: 0.2em auto 1em auto;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	/* width: fit-content; */
 	min-width: 325px;
 	width: 500px;
+	max-width: 85%;
+}
+
+.mantine-dropdown .flight-search {
+	margin: 0.2em auto 1em auto;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 300px;
 	max-width: 85%;
 }
 

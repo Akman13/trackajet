@@ -20,14 +20,13 @@ function MoreFlights({ setTrackedFlight }) {
     }
 
 
-
     return (
         <Popover opened={opened} shadow='md'>
             <Popover.Target>
                 <Button sx={buttonStyle} onClick={() => setOpened((o) => !o)}>Track A Jet!</Button>
             </Popover.Target>
 
-            <Popover.Dropdown>
+            <Popover.Dropdown className='mantine-dropdown'>
                 <SearchBar setTrackedFlight={setTrackedFlight} />
             </Popover.Dropdown>
         </Popover>

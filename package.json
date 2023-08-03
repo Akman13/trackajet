@@ -26,7 +26,7 @@
     "eject": "react-scripts eject",
     "ghdeploy": "gh-pages -d build",
     "awsdeploy": "aws s3 sync build s3://trackajet",
-    "giveAwsDirectory": "sed -i 's,/trackajet/static,/static,g' ./build/index.html",
+    "giveAwsDirectory": "sed -i 's,/trackajet/,/,g' ./build/index.html",
     "prod": "npm run build && npm run ghdeploy && npm run giveAwsDirectory && npm run awsdeploy"
   },
   "eslintConfig": {

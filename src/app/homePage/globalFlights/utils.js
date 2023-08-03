@@ -29,8 +29,11 @@ function checkFlightValidity(flight) {
     // Search the airline in the DB
     const isAirlineInDB = airlinesData.find(airline => airline.ICAO === flight.airline_icao) !== undefined
 
+    // Verify is passenger flight
+    const isPassengerFlight = airlinesData.find(airline => !airline.Airline.includes('DHL'));
 
-    if (isFlightEnroute && hasFlightIata && isDepAirportInDB && isArrAirportInDB && isAirlineInDB && hasFlightIata && areAirportNamesShort) return true
+
+    if (isFlightEnroute && hasFlightIata && isDepAirportInDB && isArrAirportInDB && isAirlineInDB && hasFlightIata && areAirportNamesShort && isPassengerFlight) return true
     else return false
 }
 
